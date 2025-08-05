@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Professional Cinematic Website with 3D Animations">
+    <title>Cinematic Experience</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <h2>Loading Cinematic Experience</h2>
+            <div class="loading-bar">
+                <div class="loading-progress"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h1>CINEMA</h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#portfolio" class="nav-link">Movies</a></li>
+                <li><a href="#egyptian" class="nav-link">Egyptian Cinema</a></li>
+                <li><a href="#services" class="nav-link">Services</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-3d-bg">
+            <div class="floating-particles"></div>
+            <div class="geometric-shapes">
+                <div class="shape shape-1"></div>
+                <div class="shape shape-2"></div>
+                <div class="shape shape-3"></div>
+                <div class="shape shape-4"></div>
+            </div>
+        </div>
+        <div class="hero-content">
+            <h1 class="hero-title">
+                <span class="title-line">CINEMATIC</span>
+                <span class="title-line">EXPERIENCE</span>
+            </h1>
+            <p class="hero-subtitle">Where imagination meets reality in stunning 3D</p>
+            <div class="hero-buttons">
+                <button class="btn btn-primary">Explore Now</button>
+                <button class="btn btn-secondary">Watch Demo</button>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="section-bg">
+            <div class="parallax-layer layer-1"></div>
+            <div class="parallax-layer layer-2"></div>
+        </div>
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">About Our Vision</h2>
+                <p class="section-subtitle">Creating immersive digital experiences</p>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Pushing the Boundaries of Digital Art</h3>
+                    <p>We specialize in creating breathtaking cinematic experiences that blur the line between reality and imagination. Our team combines cutting-edge 3D technology with artistic vision to deliver unforgettable visual journeys.</p>
+                    <div class="stats">
+                        <div class="stat">
+                            <span class="stat-number">500+</span>
+                            <span class="stat-label">Projects</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">50+</span>
+                            <span class="stat-label">Awards</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">10+</span>
+                            <span class="stat-label">Years</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-visual">
+                    <div class="rotating-cube">
+                        <div class="cube-face front"></div>
+                        <div class="cube-face back"></div>
+                        <div class="cube-face right"></div>
+                        <div class="cube-face left"></div>
+                        <div class="cube-face top"></div>
+                        <div class="cube-face bottom"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Movies Section -->
+    <section id="portfolio" class="movies">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Featured Movies</h2>
+                <p class="section-subtitle">Discover the latest blockbusters and classics</p>
+            </div>
+            
+            <!-- Movie Filters -->
+            <div class="movie-filters">
+                <button class="filter-btn active" data-filter="all">All Movies</button>
+                <button class="filter-btn" data-filter="action">Action</button>
+                <button class="filter-btn" data-filter="sci-fi">Sci-Fi</button>
+                <button class="filter-btn" data-filter="thriller">Thriller</button>
+                <button class="filter-btn" data-filter="drama">Drama</button>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="movie-search">
+                <input type="text" id="movieSearch" placeholder="Search movies..." class="search-input">
+                <button class="search-btn">🔍</button>
+            </div>
+            
+            <div class="movies-grid" id="moviesGrid">
+                <!-- Movies will be dynamically loaded here -->
+            </div>
+            
+            <!-- Load More Button -->
+            <div class="load-more-container">
+                <button class="btn btn-primary" id="loadMoreBtn">Load More Movies</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Movie Modal -->
+    <div id="movieModal" class="movie-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-body">
+                <div class="movie-poster">
+                    <img id="modalPoster" src="" alt="Movie Poster">
+                    <div class="play-trailer-btn" id="playTrailer">
+                        <div class="play-icon">▶</div>
+                        <span>Watch Trailer</span>
+                    </div>
+                </div>
+                <div class="movie-details">
+                    <h2 id="modalTitle"></h2>
+                    <div class="movie-meta">
+                        <span class="rating" id="modalRating"></span>
+                        <span class="year" id="modalYear"></span>
+                        <span class="duration" id="modalDuration"></span>
+                        <span class="genre" id="modalGenre"></span>
+                    </div>
+                    <div class="movie-description">
+                        <p id="modalOverview"></p>
+                    </div>
+                    <div class="movie-cast">
+                        <h4>Cast</h4>
+                        <div class="cast-list" id="modalCast"></div>
+                    </div>
+                                         <div class="movie-actions">
+                         <button class="btn btn-primary" id="watchNowBtn">Watch Now</button>
+                         <button class="btn btn-secondary" id="addToWatchlistBtn">Add to Watchlist</button>
+                         <button class="btn btn-secondary" id="shareBtn">Share</button>
+                     </div>
+                </div>
+            </div>
+            
+            <!-- Trailer Container -->
+            <div class="trailer-container" id="trailerContainer">
+                <div class="trailer-wrapper">
+                    <iframe id="trailerFrame" src="" frameborder="0" allowfullscreen></iframe>
+                    <button class="close-trailer" id="closeTrailer">&times;</button>
+                </div>
+            </div>
+                 </div>
+     </div>
+
+     <!-- Movie Player -->
+     <div id="moviePlayer" class="movie-player">
+         <div class="player-container">
+             <div class="player-header">
+                 <h2 id="playerTitle"></h2>
+                 <div class="player-controls-top">
+                     <button class="minimize-btn" id="minimizePlayer">⚊</button>
+                     <button class="fullscreen-btn" id="fullscreenPlayer">⛶</button>
+                     <button class="close-player-btn" id="closePlayer">&times;</button>
+                 </div>
+             </div>
+             <div class="video-wrapper">
+                 <div class="virtual-cinema-mode" id="virtualCinema">
+                     <div class="cinema-screen">
+                         <video id="movieVideo" preload="metadata">
+                             <source src="" type="video/mp4">
+                             <track kind="subtitles" src="" srclang="en" label="English" default>
+                             Your browser does not support the video tag.
+                         </video>
+                     </div>
+                     <div class="cinema-atmosphere">
+                         <div class="cinema-lights"></div>
+                         <div class="cinema-seats"></div>
+                     </div>
+                 </div>
+                 
+                 <div class="video-overlay" id="videoOverlay">
+                     <div class="play-button" id="playButton">
+                         <div class="play-icon">▶</div>
+                     </div>
+                     <div class="loading-spinner" id="videoLoader">
+                         <div class="spinner"></div>
+                     </div>
+                 </div>
+                 
+                 <!-- Custom Video Controls -->
+                 <div class="custom-video-controls" id="customControls">
+                     <div class="progress-container">
+                         <div class="progress-bar" id="progressBar">
+                             <div class="progress-filled" id="progressFilled"></div>
+                             <div class="progress-handle" id="progressHandle"></div>
+                         </div>
+                         <div class="time-display">
+                             <span id="currentTime">0:00</span> / <span id="duration">0:00</span>
+                         </div>
+                     </div>
+                     
+                     <div class="control-buttons">
+                         <div class="left-controls">
+                             <button class="control-btn" id="playPauseBtn">
+                                 <span class="play-icon">▶</span>
+                                 <span class="pause-icon" style="display: none;">⏸</span>
+                             </button>
+                             <button class="control-btn" id="rewindBtn">⏪</button>
+                             <button class="control-btn" id="forwardBtn">⏩</button>
+                             <div class="volume-control">
+                                 <button class="control-btn" id="volumeBtn">🔊</button>
+                                 <div class="volume-slider">
+                                     <input type="range" id="volumeRange" min="0" max="100" value="100">
+                                 </div>
+                             </div>
+                         </div>
+                         
+                         <div class="right-controls">
+                             <div class="quality-selector">
+                                 <button class="control-btn" id="qualityBtn">HD</button>
+                                 <div class="quality-menu" id="qualityMenu">
+                                     <div class="quality-option active" data-quality="auto">Auto</div>
+                                     <div class="quality-option" data-quality="1080p">1080p</div>
+                                     <div class="quality-option" data-quality="720p">720p</div>
+                                     <div class="quality-option" data-quality="480p">480p</div>
+                                 </div>
+                             </div>
+                             <div class="speed-selector">
+                                 <button class="control-btn" id="speedBtn">1x</button>
+                                 <div class="speed-menu" id="speedMenu">
+                                     <div class="speed-option" data-speed="0.5">0.5x</div>
+                                     <div class="speed-option" data-speed="0.75">0.75x</div>
+                                     <div class="speed-option active" data-speed="1">1x</div>
+                                     <div class="speed-option" data-speed="1.25">1.25x</div>
+                                     <div class="speed-option" data-speed="1.5">1.5x</div>
+                                     <div class="speed-option" data-speed="2">2x</div>
+                                 </div>
+                             </div>
+                             <button class="control-btn" id="subtitlesBtn">CC</button>
+                             <button class="control-btn" id="pipBtn">📺</button>
+                             <button class="control-btn" id="cineModeBtn">🎭</button>
+                             <button class="control-btn" id="fullscreenBtn">⛶</button>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+             <div class="player-info">
+                 <div class="movie-details-mini">
+                     <span id="playerYear"></span>
+                     <span id="playerGenre"></span>
+                     <span id="playerRating"></span>
+                 </div>
+                 <div class="player-actions">
+                     <button class="action-btn" id="likeBtn">👍 Like</button>
+                     <button class="action-btn" id="dislikeBtn">👎</button>
+                     <button class="action-btn" id="saveBtn">💾 Save</button>
+                     <button class="action-btn" id="downloadBtn">⬇ Download</button>
+                 </div>
+             </div>
+         </div>
+     </div>
+
+     <!-- Watchlist Sidebar -->
+     <div id="watchlistSidebar" class="watchlist-sidebar">
+         <div class="sidebar-header">
+             <h3>My Watchlist</h3>
+             <button class="close-sidebar" id="closeSidebar">&times;</button>
+         </div>
+         <div class="watchlist-content" id="watchlistContent">
+             <p class="empty-watchlist">Your watchlist is empty. Add some movies!</p>
+         </div>
+     </div>
+
+     <!-- Floating Watchlist Button -->
+     <button class="floating-watchlist-btn" id="floatingWatchlistBtn">
+         <span class="watchlist-icon">📋</span>
+         <span class="watchlist-count" id="watchlistCount">0</span>
+     </button>
+
+           <!-- Egyptian Cinema Section -->
+      <section id="egyptian" class="egyptian-cinema">
+          <div class="egyptian-bg">
+              <div class="pyramid-shapes">
+                  <div class="pyramid pyramid-1"></div>
+                  <div class="pyramid pyramid-2"></div>
+                  <div class="pyramid pyramid-3"></div>
+              </div>
+              <div class="hieroglyphics">
+                  <div class="hieroglyph hieroglyph-1">𓂀</div>
+                  <div class="hieroglyph hieroglyph-2">𓈖</div>
+                  <div class="hieroglyph hieroglyph-3">𓊪</div>
+                  <div class="hieroglyph hieroglyph-4">𓋹</div>
+              </div>
+          </div>
+          
+          <div class="container">
+              <div class="section-header">
+                  <h2 class="section-title">Egyptian Cinema</h2>
+                  <p class="section-subtitle">الأفلام والمسلسلات المصرية | Egyptian Films & Series</p>
+              </div>
+              
+              <!-- Egyptian Content Tabs -->
+              <div class="egyptian-tabs">
+                  <button class="tab-btn active" data-tab="films">
+                      <span class="tab-icon">🎬</span>
+                      <span class="tab-text">Egyptian Films</span>
+                      <span class="tab-text-ar">الأفلام المصرية</span>
+                  </button>
+                  <button class="tab-btn" data-tab="series">
+                      <span class="tab-icon">📺</span>
+                      <span class="tab-text">Egyptian Series</span>
+                      <span class="tab-text-ar">المسلسلات المصرية</span>
+                  </button>
+              </div>
+              
+              <!-- Egyptian Films Content -->
+              <div class="tab-content active" id="films-content">
+                  <div class="egyptian-filters">
+                      <button class="egyptian-filter-btn active" data-filter="all">All Films</button>
+                      <button class="egyptian-filter-btn" data-filter="classic">Classic</button>
+                      <button class="egyptian-filter-btn" data-filter="modern">Modern</button>
+                      <button class="egyptian-filter-btn" data-filter="comedy">Comedy</button>
+                      <button class="egyptian-filter-btn" data-filter="drama">Drama</button>
+                  </div>
+                  
+                  <div class="egyptian-grid" id="egyptianFilmsGrid">
+                      <!-- Egyptian films will be loaded here -->
+                  </div>
+              </div>
+              
+              <!-- Egyptian Series Content -->
+              <div class="tab-content" id="series-content">
+                  <div class="egyptian-filters">
+                      <button class="egyptian-filter-btn active" data-filter="all">All Series</button>
+                      <button class="egyptian-filter-btn" data-filter="ramadan">Ramadan</button>
+                      <button class="egyptian-filter-btn" data-filter="historical">Historical</button>
+                      <button class="egyptian-filter-btn" data-filter="social">Social</button>
+                      <button class="egyptian-filter-btn" data-filter="comedy">Comedy</button>
+                  </div>
+                  
+                  <div class="egyptian-grid" id="egyptianSeriesGrid">
+                      <!-- Egyptian series will be loaded here -->
+                  </div>
+              </div>
+          </div>
+      </section>
+
+      <!-- Services Section -->
+      <section id="services" class="services">
+        <div class="services-3d-bg">
+            <div class="floating-orbs">
+                <div class="orb orb-1"></div>
+                <div class="orb orb-2"></div>
+                <div class="orb orb-3"></div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Our Services</h2>
+                <p class="section-subtitle">Comprehensive cinematic solutions</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <div class="icon-3d"></div>
+                    </div>
+                    <h3>3D Animation</h3>
+                    <p>Breathtaking 3D animations that bring your vision to life with stunning detail and realism.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <div class="icon-vfx"></div>
+                    </div>
+                    <h3>Visual Effects</h3>
+                    <p>Cutting-edge VFX that seamlessly blend reality with imagination for unforgettable experiences.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <div class="icon-motion"></div>
+                    </div>
+                    <h3>Motion Graphics</h3>
+                    <p>Dynamic motion graphics that captivate audiences and communicate your message effectively.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="contact-bg">
+            <div class="matrix-rain"></div>
+        </div>
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Get In Touch</h2>
+                <p class="section-subtitle">Let's create something extraordinary together</p>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <h4>Email</h4>
+                        <p>hello@cinematic.com</p>
+                    </div>
+                    <div class="contact-item">
+                        <h4>Phone</h4>
+                        <p>+1 (555) 123-4567</p>
+                    </div>
+                    <div class="contact-item">
+                        <h4>Location</h4>
+                        <p>Los Angeles, CA</p>
+                    </div>
+                </div>
+                <form class="contact-form">
+                    <div class="form-group">
+                        <input type="text" placeholder="Your Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" placeholder="Your Email" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea placeholder="Your Message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h3>CINEMA</h3>
+                </div>
+                <div class="footer-links">
+                    <a href="#privacy">Privacy Policy</a>
+                    <a href="#terms">Terms of Service</a>
+                    <a href="#careers">Careers</a>
+                </div>
+                <div class="footer-social">
+                    <a href="#" class="social-link">LinkedIn</a>
+                    <a href="#" class="social-link">Twitter</a>
+                    <a href="#" class="social-link">Instagram</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Cinematic Experience. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
