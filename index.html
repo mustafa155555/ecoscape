@@ -31,7 +31,7 @@
             <ul class="nav-menu">
                 <li><a href="#home" class="nav-link">Home</a></li>
                 <li><a href="#about" class="nav-link">About</a></li>
-                <li><a href="#portfolio" class="nav-link">Portfolio</a></li>
+                <li><a href="#portfolio" class="nav-link">Movies</a></li>
                 <li><a href="#services" class="nav-link">Services</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
@@ -114,53 +114,84 @@
         </div>
     </section>
 
-    <!-- Portfolio Section -->
-    <section id="portfolio" class="portfolio">
+    <!-- Movies Section -->
+    <section id="portfolio" class="movies">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">Our Masterpieces</h2>
-                <p class="section-subtitle">A showcase of cinematic excellence</p>
+                <h2 class="section-title">Featured Movies</h2>
+                <p class="section-subtitle">Discover the latest blockbusters and classics</p>
             </div>
-            <div class="portfolio-grid">
-                <div class="portfolio-item" data-category="animation">
-                    <div class="portfolio-image">
-                        <div class="portfolio-overlay">
-                            <h3>Quantum Dreams</h3>
-                            <p>3D Animation</p>
-                            <button class="view-btn">View Project</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="portfolio-item" data-category="vfx">
-                    <div class="portfolio-image">
-                        <div class="portfolio-overlay">
-                            <h3>Neon Cityscape</h3>
-                            <p>Visual Effects</p>
-                            <button class="view-btn">View Project</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="portfolio-item" data-category="motion">
-                    <div class="portfolio-image">
-                        <div class="portfolio-overlay">
-                            <h3>Ethereal Motion</h3>
-                            <p>Motion Graphics</p>
-                            <button class="view-btn">View Project</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="portfolio-item" data-category="animation">
-                    <div class="portfolio-image">
-                        <div class="portfolio-overlay">
-                            <h3>Digital Cosmos</h3>
-                            <p>3D Animation</p>
-                            <button class="view-btn">View Project</button>
-                        </div>
-                    </div>
-                </div>
+            
+            <!-- Movie Filters -->
+            <div class="movie-filters">
+                <button class="filter-btn active" data-filter="all">All Movies</button>
+                <button class="filter-btn" data-filter="action">Action</button>
+                <button class="filter-btn" data-filter="sci-fi">Sci-Fi</button>
+                <button class="filter-btn" data-filter="thriller">Thriller</button>
+                <button class="filter-btn" data-filter="drama">Drama</button>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="movie-search">
+                <input type="text" id="movieSearch" placeholder="Search movies..." class="search-input">
+                <button class="search-btn">🔍</button>
+            </div>
+            
+            <div class="movies-grid" id="moviesGrid">
+                <!-- Movies will be dynamically loaded here -->
+            </div>
+            
+            <!-- Load More Button -->
+            <div class="load-more-container">
+                <button class="btn btn-primary" id="loadMoreBtn">Load More Movies</button>
             </div>
         </div>
     </section>
+
+    <!-- Movie Modal -->
+    <div id="movieModal" class="movie-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-body">
+                <div class="movie-poster">
+                    <img id="modalPoster" src="" alt="Movie Poster">
+                    <div class="play-trailer-btn" id="playTrailer">
+                        <div class="play-icon">▶</div>
+                        <span>Watch Trailer</span>
+                    </div>
+                </div>
+                <div class="movie-details">
+                    <h2 id="modalTitle"></h2>
+                    <div class="movie-meta">
+                        <span class="rating" id="modalRating"></span>
+                        <span class="year" id="modalYear"></span>
+                        <span class="duration" id="modalDuration"></span>
+                        <span class="genre" id="modalGenre"></span>
+                    </div>
+                    <div class="movie-description">
+                        <p id="modalOverview"></p>
+                    </div>
+                    <div class="movie-cast">
+                        <h4>Cast</h4>
+                        <div class="cast-list" id="modalCast"></div>
+                    </div>
+                    <div class="movie-actions">
+                        <button class="btn btn-primary">Watch Now</button>
+                        <button class="btn btn-secondary">Add to Watchlist</button>
+                        <button class="btn btn-secondary">Share</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Trailer Container -->
+            <div class="trailer-container" id="trailerContainer">
+                <div class="trailer-wrapper">
+                    <iframe id="trailerFrame" src="" frameborder="0" allowfullscreen></iframe>
+                    <button class="close-trailer" id="closeTrailer">&times;</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Services Section -->
     <section id="services" class="services">

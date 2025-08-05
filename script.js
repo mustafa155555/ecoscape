@@ -170,30 +170,390 @@ document.addEventListener('DOMContentLoaded', function() {
         heroContent.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
     });
 
-    // Portfolio hover effects
-    const portfolioItems = document.querySelectorAll('.portfolio-item');
-    portfolioItems.forEach(item => {
-        item.addEventListener('mouseenter', () => {
-            item.style.transform = 'rotateY(10deg) rotateX(10deg) translateZ(30px)';
+    // Movie Database
+    const movieDatabase = [
+        {
+            id: 1,
+            title: "Dune: Part Two",
+            year: 2024,
+            genre: ["Sci-Fi", "Adventure"],
+            rating: 8.8,
+            duration: "166 min",
+            overview: "Paul Atreides unites with Chani and the Fremen while seeking revenge against the conspirators who destroyed his family.",
+            poster: "https://image.tmdb.org/t/p/w500/1pdfLvkbY9ohJlCjQH2CZjjYVvJ.jpg",
+            trailer: "https://www.youtube.com/embed/Way9Dexny3w",
+            cast: ["Timothée Chalamet", "Zendaya", "Rebecca Ferguson", "Oscar Isaac"],
+            category: "sci-fi"
+        },
+        {
+            id: 2,
+            title: "Top Gun: Maverick",
+            year: 2022,
+            genre: ["Action", "Drama"],
+            rating: 8.7,
+            duration: "130 min",
+            overview: "After thirty years, Maverick is still pushing the envelope as a top naval aviator, but must confront ghosts of his past.",
+            poster: "https://image.tmdb.org/t/p/w500/62HCnUTziyWcpDaBO2i1DX17ljH.jpg",
+            trailer: "https://www.youtube.com/embed/giXco2jaZ_4",
+            cast: ["Tom Cruise", "Miles Teller", "Jennifer Connelly", "Jon Hamm"],
+            category: "action"
+        },
+        {
+            id: 3,
+            title: "Everything Everywhere All at Once",
+            year: 2022,
+            genre: ["Sci-Fi", "Comedy", "Drama"],
+            rating: 8.1,
+            duration: "139 min",
+            overview: "A middle-aged Chinese immigrant is swept up into an insane adventure in which she alone can save existence.",
+            poster: "https://image.tmdb.org/t/p/w500/w3LxiVYdWWRvEkPjYBlocky4xAr.jpg",
+            trailer: "https://www.youtube.com/embed/WLJJmB-wYMw",
+            cast: ["Michelle Yeoh", "Stephanie Hsu", "Ke Huy Quan", "Jamie Lee Curtis"],
+            category: "sci-fi"
+        },
+        {
+            id: 4,
+            title: "The Batman",
+            year: 2022,
+            genre: ["Action", "Crime", "Drama"],
+            rating: 7.8,
+            duration: "176 min",
+            overview: "When the Riddler, a sadistic serial killer, begins murdering key political figures in Gotham, Batman must track the killer down.",
+            poster: "https://image.tmdb.org/t/p/w500/74xTEgt7R36Fpooo50r9T25onhq.jpg",
+            trailer: "https://www.youtube.com/embed/mqqft2x_Aa4",
+            cast: ["Robert Pattinson", "Zoë Kravitz", "Jeffrey Wright", "Colin Farrell"],
+            category: "action"
+        },
+        {
+            id: 5,
+            title: "Oppenheimer",
+            year: 2023,
+            genre: ["Biography", "Drama", "History"],
+            rating: 8.4,
+            duration: "180 min",
+            overview: "The story of American scientist J. Robert Oppenheimer and his role in the development of the atomic bomb.",
+            poster: "https://image.tmdb.org/t/p/w500/8Gxv8gSFCU0XGDykEGv7zR1n2ua.jpg",
+            trailer: "https://www.youtube.com/embed/uYPbbksJxIg",
+            cast: ["Cillian Murphy", "Emily Blunt", "Matt Damon", "Robert Downey Jr."],
+            category: "drama"
+        },
+        {
+            id: 6,
+            title: "John Wick: Chapter 4",
+            year: 2023,
+            genre: ["Action", "Crime", "Thriller"],
+            rating: 7.7,
+            duration: "169 min",
+            overview: "John Wick uncovers a path to defeating The High Table. But before he can earn his freedom, Wick must face off against a new enemy.",
+            poster: "https://image.tmdb.org/t/p/w500/vZloFAK7NmvMGKE7VkF5UHaz0I.jpg",
+            trailer: "https://www.youtube.com/embed/qEVUtrk8_B4",
+            cast: ["Keanu Reeves", "Donnie Yen", "Bill Skarsgård", "Laurence Fishburne"],
+            category: "action"
+        },
+        {
+            id: 7,
+            title: "Spider-Man: Across the Spider-Verse",
+            year: 2023,
+            genre: ["Animation", "Action", "Adventure"],
+            rating: 8.7,
+            duration: "140 min",
+            overview: "Miles Morales catapults across the Multiverse, where he encounters a team of Spider-People charged with protecting existence itself.",
+            poster: "https://image.tmdb.org/t/p/w500/8Vt6mWEReuy4Of61Lnj5Xj704m8.jpg",
+            trailer: "https://www.youtube.com/embed/cqGjhVJWtEg",
+            cast: ["Shameik Moore", "Hailee Steinfeld", "Brian Tyree Henry", "Luna Lauren Vélez"],
+            category: "action"
+        },
+        {
+            id: 8,
+            title: "Blade Runner 2049",
+            year: 2017,
+            genre: ["Sci-Fi", "Drama", "Mystery"],
+            rating: 8.0,
+            duration: "164 min",
+            overview: "Young Blade Runner K's discovery of a long-buried secret leads him to track down former Blade Runner Rick Deckard.",
+            poster: "https://image.tmdb.org/t/p/w500/gajva2L0rPYkEWjzgFlBXCAVBE5.jpg",
+            trailer: "https://www.youtube.com/embed/gCcx85zbxz4",
+            cast: ["Ryan Gosling", "Harrison Ford", "Ana de Armas", "Jared Leto"],
+            category: "sci-fi"
+        },
+        {
+            id: 9,
+            title: "Mad Max: Fury Road",
+            year: 2015,
+            genre: ["Action", "Adventure", "Sci-Fi"],
+            rating: 8.1,
+            duration: "120 min",
+            overview: "In a post-apocalyptic wasteland, Max teams up with Furiosa to flee from a cult leader and his army.",
+            poster: "https://image.tmdb.org/t/p/w500/hA2ple9q4qnwxp3hKVNhroipsir.jpg",
+            trailer: "https://www.youtube.com/embed/hEJnMQG9ev8",
+            cast: ["Tom Hardy", "Charlize Theron", "Nicholas Hoult", "Hugh Keays-Byrne"],
+            category: "action"
+        },
+        {
+            id: 10,
+            title: "Inception",
+            year: 2010,
+            genre: ["Sci-Fi", "Action", "Thriller"],
+            rating: 8.8,
+            duration: "148 min",
+            overview: "A thief who steals corporate secrets through dream-sharing technology is given the inverse task of planting an idea.",
+            poster: "https://image.tmdb.org/t/p/w500/9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg",
+            trailer: "https://www.youtube.com/embed/YoHD9XEInc0",
+            cast: ["Leonardo DiCaprio", "Marion Cotillard", "Tom Hardy", "Elliot Page"],
+            category: "sci-fi"
+        },
+        {
+            id: 11,
+            title: "Parasite",
+            year: 2019,
+            genre: ["Comedy", "Drama", "Thriller"],
+            rating: 8.5,
+            duration: "132 min",
+            overview: "A poor family schemes to become employed by a wealthy family and infiltrate their household by posing as unrelated, highly qualified individuals.",
+            poster: "https://image.tmdb.org/t/p/w500/7IiTTgloJzvGI1TAYymCfbfl3vT.jpg",
+            trailer: "https://www.youtube.com/embed/5xH0HfJHsaY",
+            cast: ["Song Kang-ho", "Lee Sun-kyun", "Cho Yeo-jeong", "Choi Woo-shik"],
+            category: "thriller"
+        },
+        {
+            id: 12,
+            title: "Interstellar",
+            year: 2014,
+            genre: ["Sci-Fi", "Drama", "Adventure"],
+            rating: 8.6,
+            duration: "169 min",
+            overview: "A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival.",
+            poster: "https://image.tmdb.org/t/p/w500/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg",
+            trailer: "https://www.youtube.com/embed/zSWdZVtXT7E",
+            cast: ["Matthew McConaughey", "Anne Hathaway", "Jessica Chastain", "Michael Caine"],
+            category: "sci-fi"
+        }
+    ];
+
+    let currentMovies = [...movieDatabase];
+    let displayedMovies = 0;
+    const moviesPerLoad = 6;
+
+    // Movie functionality
+    function createMovieCard(movie) {
+        return `
+            <div class="movie-card" data-movie-id="${movie.id}" data-category="${movie.category}">
+                <div class="movie-poster">
+                    <img src="${movie.poster}" alt="${movie.title}" loading="lazy">
+                    <div class="movie-rating">⭐ ${movie.rating}</div>
+                </div>
+                <div class="movie-info">
+                    <h3 class="movie-title">${movie.title}</h3>
+                    <div class="movie-meta">
+                        <span class="movie-year">${movie.year}</span>
+                        <span class="movie-genre">${movie.genre.join(', ')}</span>
+                    </div>
+                    <p class="movie-overview">${movie.overview}</p>
+                </div>
+            </div>
+        `;
+    }
+
+    function loadMovies(reset = false) {
+        const moviesGrid = document.getElementById('moviesGrid');
+        const loadMoreBtn = document.getElementById('loadMoreBtn');
+        
+        if (reset) {
+            moviesGrid.innerHTML = '';
+            displayedMovies = 0;
+        }
+        
+        const moviesToShow = currentMovies.slice(displayedMovies, displayedMovies + moviesPerLoad);
+        
+        moviesToShow.forEach(movie => {
+            moviesGrid.innerHTML += createMovieCard(movie);
         });
         
-        item.addEventListener('mouseleave', () => {
-            item.style.transform = 'rotateY(0deg) rotateX(0deg) translateZ(0px)';
+        displayedMovies += moviesToShow.length;
+        
+        // Hide load more button if all movies are displayed
+        if (displayedMovies >= currentMovies.length) {
+            loadMoreBtn.style.display = 'none';
+        } else {
+            loadMoreBtn.style.display = 'block';
+        }
+        
+        // Add event listeners to new movie cards
+        addMovieCardListeners();
+    }
+
+    function addMovieCardListeners() {
+        const movieCards = document.querySelectorAll('.movie-card');
+        movieCards.forEach(card => {
+            // Remove existing listeners to prevent duplicates
+            card.replaceWith(card.cloneNode(true));
         });
         
-        item.addEventListener('mousemove', (e) => {
-            const rect = item.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
+        // Re-select cards and add listeners
+        const newMovieCards = document.querySelectorAll('.movie-card');
+        newMovieCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const movieId = parseInt(card.dataset.movieId);
+                openMovieModal(movieId);
+            });
             
-            const rotateY = (x - centerX) / centerX * 15;
-            const rotateX = (centerY - y) / centerY * 15;
+            // 3D hover effect
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const rotateY = (x - centerX) / centerX * 10;
+                const rotateX = (centerY - y) / centerY * 10;
+                
+                card.style.transform = `translateY(-10px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            });
             
-            item.style.transform = `rotateY(${rotateY}deg) rotateX(${rotateX}deg) translateZ(30px)`;
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = '';
+            });
         });
-    });
+    }
+
+    function openMovieModal(movieId) {
+        const movie = movieDatabase.find(m => m.id === movieId);
+        if (!movie) return;
+        
+        const modal = document.getElementById('movieModal');
+        
+        // Populate modal content
+        document.getElementById('modalPoster').src = movie.poster;
+        document.getElementById('modalTitle').textContent = movie.title;
+        document.getElementById('modalRating').textContent = `⭐ ${movie.rating}`;
+        document.getElementById('modalYear').textContent = movie.year;
+        document.getElementById('modalDuration').textContent = movie.duration;
+        document.getElementById('modalGenre').textContent = movie.genre.join(', ');
+        document.getElementById('modalOverview').textContent = movie.overview;
+        
+        // Populate cast
+        const castContainer = document.getElementById('modalCast');
+        castContainer.innerHTML = movie.cast.map(actor => 
+            `<span class="cast-member">${actor}</span>`
+        ).join('');
+        
+        // Show modal
+        modal.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+        
+        // Store trailer URL for later use
+        modal.dataset.trailerUrl = movie.trailer;
+    }
+
+    // Movie filtering
+    function filterMovies(category) {
+        if (category === 'all') {
+            currentMovies = [...movieDatabase];
+        } else {
+            currentMovies = movieDatabase.filter(movie => movie.category === category);
+        }
+        loadMovies(true);
+    }
+
+    // Movie search
+    function searchMovies(query) {
+        if (!query.trim()) {
+            currentMovies = [...movieDatabase];
+        } else {
+            currentMovies = movieDatabase.filter(movie => 
+                movie.title.toLowerCase().includes(query.toLowerCase()) ||
+                movie.genre.some(g => g.toLowerCase().includes(query.toLowerCase())) ||
+                movie.cast.some(actor => actor.toLowerCase().includes(query.toLowerCase()))
+            );
+        }
+        loadMovies(true);
+    }
+
+    // Initialize movies
+    function initializeMovies() {
+        loadMovies();
+        
+        // Filter buttons
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                filterMovies(btn.dataset.filter);
+            });
+        });
+        
+        // Search functionality
+        const searchInput = document.getElementById('movieSearch');
+        const searchBtn = document.querySelector('.search-btn');
+        
+        searchInput.addEventListener('input', (e) => {
+            searchMovies(e.target.value);
+        });
+        
+        searchBtn.addEventListener('click', () => {
+            searchMovies(searchInput.value);
+        });
+        
+        // Load more button
+        const loadMoreBtn = document.getElementById('loadMoreBtn');
+        loadMoreBtn.addEventListener('click', () => {
+            loadMovies();
+        });
+        
+        // Modal functionality
+        const modal = document.getElementById('movieModal');
+        const closeModal = document.querySelector('.close-modal');
+        const playTrailerBtn = document.getElementById('playTrailer');
+        const trailerContainer = document.getElementById('trailerContainer');
+        const closeTrailerBtn = document.getElementById('closeTrailer');
+        const trailerFrame = document.getElementById('trailerFrame');
+        
+        closeModal.addEventListener('click', () => {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+            // Stop trailer if playing
+            trailerFrame.src = '';
+            trailerContainer.style.display = 'none';
+        });
+        
+        playTrailerBtn.addEventListener('click', () => {
+            const trailerUrl = modal.dataset.trailerUrl;
+            if (trailerUrl) {
+                trailerFrame.src = trailerUrl + '?autoplay=1';
+                trailerContainer.style.display = 'block';
+            }
+        });
+        
+        closeTrailerBtn.addEventListener('click', () => {
+            trailerFrame.src = '';
+            trailerContainer.style.display = 'none';
+        });
+        
+        // Close modal when clicking outside
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+                trailerFrame.src = '';
+                trailerContainer.style.display = 'none';
+            }
+        });
+        
+        // Keyboard navigation for modal
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                if (trailerContainer.style.display === 'block') {
+                    trailerFrame.src = '';
+                    trailerContainer.style.display = 'none';
+                } else if (modal.style.display === 'block') {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+            }
+        });
+    }
 
     // Service cards 3D effect
     const serviceCards = document.querySelectorAll('.service-card');
@@ -311,6 +671,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize all animations after loading
     function initializeAnimations() {
         createParticles();
+        initializeMovies();
         
         // Add CSS for particle animation
         const style = document.createElement('style');
