@@ -989,23 +989,42 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
         
-        // Show/hide custom controls
+        // Show/hide custom controls (with mobile support)
         const videoWrapper = document.querySelector('.video-wrapper');
         const customControls = document.getElementById('customControls');
         
+        // Mouse events for desktop
         videoWrapper.addEventListener('mousemove', () => {
             customControls.classList.add('active');
             clearTimeout(videoWrapper.hideControlsTimeout);
             videoWrapper.hideControlsTimeout = setTimeout(() => {
-                if (!video.paused) {
+                if (!video.paused && !isMobileDevice()) {
                     customControls.classList.remove('active');
                 }
             }, 3000);
         });
         
         videoWrapper.addEventListener('mouseleave', () => {
-            if (!video.paused) {
+            if (!video.paused && !isMobileDevice()) {
                 customControls.classList.remove('active');
+            }
+        });
+        
+        // Touch events for mobile
+        videoWrapper.addEventListener('touchstart', () => {
+            customControls.classList.toggle('active');
+        });
+        
+        // Always show controls on mobile
+        if (isMobileDevice()) {
+            customControls.classList.add('active');
+        }
+        
+        // Video click to toggle controls on mobile
+        video.addEventListener('click', (e) => {
+            if (isMobileDevice()) {
+                e.preventDefault();
+                customControls.classList.toggle('active');
             }
         });
         
@@ -1381,5 +1400,10 @@ function checkBrowserSupport() {
     return supports;
 }
 
-// Initialize browser support check
-checkBrowserSupport();
+    // Initialize browser support check
+    checkBrowserSupport();
+
+    // Mobile device detection
+    function isMobileDevice() {
+        return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768;
+    }
