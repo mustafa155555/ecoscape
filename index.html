@@ -205,16 +205,83 @@
                  </div>
              </div>
              <div class="video-wrapper">
-                 <video id="movieVideo" controls preload="metadata">
-                     <source src="" type="video/mp4">
-                     Your browser does not support the video tag.
-                 </video>
+                 <div class="virtual-cinema-mode" id="virtualCinema">
+                     <div class="cinema-screen">
+                         <video id="movieVideo" preload="metadata">
+                             <source src="" type="video/mp4">
+                             <track kind="subtitles" src="" srclang="en" label="English" default>
+                             Your browser does not support the video tag.
+                         </video>
+                     </div>
+                     <div class="cinema-atmosphere">
+                         <div class="cinema-lights"></div>
+                         <div class="cinema-seats"></div>
+                     </div>
+                 </div>
+                 
                  <div class="video-overlay" id="videoOverlay">
                      <div class="play-button" id="playButton">
                          <div class="play-icon">▶</div>
                      </div>
                      <div class="loading-spinner" id="videoLoader">
                          <div class="spinner"></div>
+                     </div>
+                 </div>
+                 
+                 <!-- Custom Video Controls -->
+                 <div class="custom-video-controls" id="customControls">
+                     <div class="progress-container">
+                         <div class="progress-bar" id="progressBar">
+                             <div class="progress-filled" id="progressFilled"></div>
+                             <div class="progress-handle" id="progressHandle"></div>
+                         </div>
+                         <div class="time-display">
+                             <span id="currentTime">0:00</span> / <span id="duration">0:00</span>
+                         </div>
+                     </div>
+                     
+                     <div class="control-buttons">
+                         <div class="left-controls">
+                             <button class="control-btn" id="playPauseBtn">
+                                 <span class="play-icon">▶</span>
+                                 <span class="pause-icon" style="display: none;">⏸</span>
+                             </button>
+                             <button class="control-btn" id="rewindBtn">⏪</button>
+                             <button class="control-btn" id="forwardBtn">⏩</button>
+                             <div class="volume-control">
+                                 <button class="control-btn" id="volumeBtn">🔊</button>
+                                 <div class="volume-slider">
+                                     <input type="range" id="volumeRange" min="0" max="100" value="100">
+                                 </div>
+                             </div>
+                         </div>
+                         
+                         <div class="right-controls">
+                             <div class="quality-selector">
+                                 <button class="control-btn" id="qualityBtn">HD</button>
+                                 <div class="quality-menu" id="qualityMenu">
+                                     <div class="quality-option active" data-quality="auto">Auto</div>
+                                     <div class="quality-option" data-quality="1080p">1080p</div>
+                                     <div class="quality-option" data-quality="720p">720p</div>
+                                     <div class="quality-option" data-quality="480p">480p</div>
+                                 </div>
+                             </div>
+                             <div class="speed-selector">
+                                 <button class="control-btn" id="speedBtn">1x</button>
+                                 <div class="speed-menu" id="speedMenu">
+                                     <div class="speed-option" data-speed="0.5">0.5x</div>
+                                     <div class="speed-option" data-speed="0.75">0.75x</div>
+                                     <div class="speed-option active" data-speed="1">1x</div>
+                                     <div class="speed-option" data-speed="1.25">1.25x</div>
+                                     <div class="speed-option" data-speed="1.5">1.5x</div>
+                                     <div class="speed-option" data-speed="2">2x</div>
+                                 </div>
+                             </div>
+                             <button class="control-btn" id="subtitlesBtn">CC</button>
+                             <button class="control-btn" id="pipBtn">📺</button>
+                             <button class="control-btn" id="cineModeBtn">🎭</button>
+                             <button class="control-btn" id="fullscreenBtn">⛶</button>
+                         </div>
                      </div>
                  </div>
              </div>
@@ -351,7 +418,7 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2024 Cinematic Experience. All rights reserved.</p>
+                <p>&copy; 2025 Cinematic Experience. All rights reserved.</p>
             </div>
         </div>
     </footer>
