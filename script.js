@@ -693,6 +693,21 @@ document.addEventListener('DOMContentLoaded', function() {
             movieUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
             category: "classic",
             type: "film"
+        },
+        {
+            id: 126,
+            title: "Egyptian Classic Drama",
+            titleAr: "دراما مصرية كلاسيكية",
+            year: 1970,
+            genre: ["Drama", "Romance"],
+            rating: 8.1,
+            duration: "120 min",
+            overview: "A classic Egyptian drama exploring themes of love, family, and social change in 1970s Egypt. Features compelling performances and authentic Egyptian storytelling.",
+            poster: "https://i.ytimg.com/vi/ZrA1-RozF6w/maxresdefault.jpg",
+            movieUrl: "https://www.youtube.com/embed/ZrA1-RozF6w",
+            trailer: "https://youtu.be/ZrA1-RozF6w?si=WicLFTkne7KqM_1_",
+            category: "classic",
+            type: "film"
         }
     ];
 
@@ -1277,6 +1292,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const player = document.getElementById('moviePlayer');
         const video = document.getElementById('movieVideo');
         const videoSource = video.querySelector('source');
+        const videoWrapper = document.querySelector('.video-wrapper');
         
         // Set content details
         document.getElementById('playerTitle').textContent = content.title + (content.titleAr ? ` | ${content.titleAr}` : '');
@@ -1284,12 +1300,59 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('playerGenre').textContent = content.genre.join(', ');
         document.getElementById('playerRating').textContent = `⭐ ${content.rating}`;
         
-        // Set video source
-        videoSource.src = content.movieUrl;
-        video.load();
-        
-        // Initialize custom controls
-        initializeVideoControls();
+        // Check if it's a YouTube video
+        if (content.movieUrl.includes('youtube.com/embed') || content.movieUrl.includes('youtu.be')) {
+            // Hide video element and show YouTube iframe
+            video.style.display = 'none';
+            
+            // Remove existing iframe if any
+            const existingIframe = videoWrapper.querySelector('iframe');
+            if (existingIframe) {
+                existingIframe.remove();
+            }
+            
+            // Create YouTube iframe
+            const iframe = document.createElement('iframe');
+            iframe.src = content.movieUrl + '?autoplay=1&controls=1&rel=0';
+            iframe.width = '100%';
+            iframe.height = '100%';
+            iframe.frameBorder = '0';
+            iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+            iframe.allowFullscreen = true;
+            iframe.style.position = 'absolute';
+            iframe.style.top = '0';
+            iframe.style.left = '0';
+            iframe.style.width = '100%';
+            iframe.style.height = '100%';
+            
+            videoWrapper.appendChild(iframe);
+            
+            // Hide custom controls for YouTube videos
+            document.getElementById('customControls').style.display = 'none';
+        } else {
+            // Regular video file - show video element and hide any iframe
+            video.style.display = 'block';
+            const existingIframe = videoWrapper.querySelector('iframe');
+            if (existingIframe) {
+                existingIframe.remove();
+            }
+            
+            // Set video source
+            videoSource.src = content.movieUrl;
+            video.load();
+            
+            // Initialize custom controls
+            initializeVideoControls();
+            
+            // Show custom controls
+            document.getElementById('customControls').style.display = 'flex';
+            
+            // Auto-play video
+            video.play().catch(e => {
+                console.log('Auto-play prevented:', e);
+                document.getElementById('videoOverlay').classList.add('active');
+            });
+        }
         
         // Show player
         player.style.display = 'block';
@@ -1298,12 +1361,6 @@ document.addEventListener('DOMContentLoaded', function() {
         // Close modal if open
         const modal = document.getElementById('movieModal');
         modal.style.display = 'none';
-        
-        // Auto-play video
-        video.play().catch(e => {
-            console.log('Auto-play prevented:', e);
-            document.getElementById('videoOverlay').classList.add('active');
-        });
     }
 
     function initializeVideoControls() {
@@ -1507,9 +1564,26 @@ document.addEventListener('DOMContentLoaded', function() {
     function closeMoviePlayer() {
         const player = document.getElementById('moviePlayer');
         const video = document.getElementById('movieVideo');
+        const videoWrapper = document.querySelector('.video-wrapper');
         
-        video.pause();
-        video.currentTime = 0;
+        // Pause and reset video if it exists
+        if (video.style.display !== 'none') {
+            video.pause();
+            video.currentTime = 0;
+        }
+        
+        // Remove YouTube iframe if it exists
+        const iframe = videoWrapper.querySelector('iframe');
+        if (iframe) {
+            iframe.remove();
+        }
+        
+        // Show video element again
+        video.style.display = 'block';
+        
+        // Show custom controls again
+        document.getElementById('customControls').style.display = 'flex';
+        
         player.style.display = 'none';
         player.classList.remove('minimized');
         document.body.style.overflow = 'auto';
