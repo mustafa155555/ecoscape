@@ -182,6 +182,7 @@ document.addEventListener('DOMContentLoaded', function() {
             overview: "Paul Atreides unites with Chani and the Fremen while seeking revenge against the conspirators who destroyed his family.",
             poster: "https://image.tmdb.org/t/p/w500/1pdfLvkbY9ohJlCjQH2CZjjYVvJ.jpg",
             trailer: "https://www.youtube.com/embed/Way9Dexny3w",
+            movieUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
             cast: ["Timothée Chalamet", "Zendaya", "Rebecca Ferguson", "Oscar Isaac"],
             category: "sci-fi"
         },
@@ -195,6 +196,7 @@ document.addEventListener('DOMContentLoaded', function() {
             overview: "After thirty years, Maverick is still pushing the envelope as a top naval aviator, but must confront ghosts of his past.",
             poster: "https://image.tmdb.org/t/p/w500/62HCnUTziyWcpDaBO2i1DX17ljH.jpg",
             trailer: "https://www.youtube.com/embed/giXco2jaZ_4",
+            movieUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
             cast: ["Tom Cruise", "Miles Teller", "Jennifer Connelly", "Jon Hamm"],
             category: "action"
         },
@@ -208,6 +210,7 @@ document.addEventListener('DOMContentLoaded', function() {
             overview: "A middle-aged Chinese immigrant is swept up into an insane adventure in which she alone can save existence.",
             poster: "https://image.tmdb.org/t/p/w500/w3LxiVYdWWRvEkPjYBlocky4xAr.jpg",
             trailer: "https://www.youtube.com/embed/WLJJmB-wYMw",
+            movieUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
             cast: ["Michelle Yeoh", "Stephanie Hsu", "Ke Huy Quan", "Jamie Lee Curtis"],
             category: "sci-fi"
         },
@@ -221,6 +224,7 @@ document.addEventListener('DOMContentLoaded', function() {
             overview: "When the Riddler, a sadistic serial killer, begins murdering key political figures in Gotham, Batman must track the killer down.",
             poster: "https://image.tmdb.org/t/p/w500/74xTEgt7R36Fpooo50r9T25onhq.jpg",
             trailer: "https://www.youtube.com/embed/mqqft2x_Aa4",
+            movieUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
             cast: ["Robert Pattinson", "Zoë Kravitz", "Jeffrey Wright", "Colin Farrell"],
             category: "action"
         },
@@ -234,6 +238,7 @@ document.addEventListener('DOMContentLoaded', function() {
             overview: "The story of American scientist J. Robert Oppenheimer and his role in the development of the atomic bomb.",
             poster: "https://image.tmdb.org/t/p/w500/8Gxv8gSFCU0XGDykEGv7zR1n2ua.jpg",
             trailer: "https://www.youtube.com/embed/uYPbbksJxIg",
+            movieUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4",
             cast: ["Cillian Murphy", "Emily Blunt", "Matt Damon", "Robert Downey Jr."],
             category: "drama"
         },
@@ -247,6 +252,7 @@ document.addEventListener('DOMContentLoaded', function() {
             overview: "John Wick uncovers a path to defeating The High Table. But before he can earn his freedom, Wick must face off against a new enemy.",
             poster: "https://image.tmdb.org/t/p/w500/vZloFAK7NmvMGKE7VkF5UHaz0I.jpg",
             trailer: "https://www.youtube.com/embed/qEVUtrk8_B4",
+            movieUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4",
             cast: ["Keanu Reeves", "Donnie Yen", "Bill Skarsgård", "Laurence Fishburne"],
             category: "action"
         },
@@ -260,6 +266,7 @@ document.addEventListener('DOMContentLoaded', function() {
             overview: "Miles Morales catapults across the Multiverse, where he encounters a team of Spider-People charged with protecting existence itself.",
             poster: "https://image.tmdb.org/t/p/w500/8Vt6mWEReuy4Of61Lnj5Xj704m8.jpg",
             trailer: "https://www.youtube.com/embed/cqGjhVJWtEg",
+            movieUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4",
             cast: ["Shameik Moore", "Hailee Steinfeld", "Brian Tyree Henry", "Luna Lauren Vélez"],
             category: "action"
         },
@@ -273,6 +280,7 @@ document.addEventListener('DOMContentLoaded', function() {
             overview: "Young Blade Runner K's discovery of a long-buried secret leads him to track down former Blade Runner Rick Deckard.",
             poster: "https://image.tmdb.org/t/p/w500/gajva2L0rPYkEWjzgFlBXCAVBE5.jpg",
             trailer: "https://www.youtube.com/embed/gCcx85zbxz4",
+            movieUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4",
             cast: ["Ryan Gosling", "Harrison Ford", "Ana de Armas", "Jared Leto"],
             category: "sci-fi"
         },
@@ -286,6 +294,7 @@ document.addEventListener('DOMContentLoaded', function() {
             overview: "In a post-apocalyptic wasteland, Max teams up with Furiosa to flee from a cult leader and his army.",
             poster: "https://image.tmdb.org/t/p/w500/hA2ple9q4qnwxp3hKVNhroipsir.jpg",
             trailer: "https://www.youtube.com/embed/hEJnMQG9ev8",
+            movieUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackOnStreetAndDirt.mp4",
             cast: ["Tom Hardy", "Charlize Theron", "Nicholas Hoult", "Hugh Keays-Byrne"],
             category: "action"
         },
@@ -299,6 +308,7 @@ document.addEventListener('DOMContentLoaded', function() {
             overview: "A thief who steals corporate secrets through dream-sharing technology is given the inverse task of planting an idea.",
             poster: "https://image.tmdb.org/t/p/w500/9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg",
             trailer: "https://www.youtube.com/embed/YoHD9XEInc0",
+            movieUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4",
             cast: ["Leonardo DiCaprio", "Marion Cotillard", "Tom Hardy", "Elliot Page"],
             category: "sci-fi"
         },
@@ -312,6 +322,7 @@ document.addEventListener('DOMContentLoaded', function() {
             overview: "A poor family schemes to become employed by a wealthy family and infiltrate their household by posing as unrelated, highly qualified individuals.",
             poster: "https://image.tmdb.org/t/p/w500/7IiTTgloJzvGI1TAYymCfbfl3vT.jpg",
             trailer: "https://www.youtube.com/embed/5xH0HfJHsaY",
+            movieUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/VolkswagenGTIReview.mp4",
             cast: ["Song Kang-ho", "Lee Sun-kyun", "Cho Yeo-jeong", "Choi Woo-shik"],
             category: "thriller"
         },
@@ -325,6 +336,7 @@ document.addEventListener('DOMContentLoaded', function() {
             overview: "A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival.",
             poster: "https://image.tmdb.org/t/p/w500/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg",
             trailer: "https://www.youtube.com/embed/zSWdZVtXT7E",
+            movieUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WhatCarCanYouGetForAGrand.mp4",
             cast: ["Matthew McConaughey", "Anne Hathaway", "Jessica Chastain", "Michael Caine"],
             category: "sci-fi"
         }
@@ -442,8 +454,10 @@ document.addEventListener('DOMContentLoaded', function() {
         modal.style.display = 'block';
         document.body.style.overflow = 'hidden';
         
-        // Store trailer URL for later use
+        // Store trailer URL and movie URL for later use
         modal.dataset.trailerUrl = movie.trailer;
+        modal.dataset.movieUrl = movie.movieUrl;
+        modal.dataset.movieId = movie.id;
     }
 
     // Movie filtering
@@ -470,9 +484,139 @@ document.addEventListener('DOMContentLoaded', function() {
         loadMovies(true);
     }
 
+    // Watchlist functionality
+    let watchlist = JSON.parse(localStorage.getItem('movieWatchlist')) || [];
+
+    function updateWatchlistUI() {
+        const watchlistCount = document.getElementById('watchlistCount');
+        const watchlistContent = document.getElementById('watchlistContent');
+        
+        watchlistCount.textContent = watchlist.length;
+        
+        if (watchlist.length === 0) {
+            watchlistContent.innerHTML = '<p class="empty-watchlist">Your watchlist is empty. Add some movies!</p>';
+        } else {
+            watchlistContent.innerHTML = watchlist.map(movie => `
+                <div class="watchlist-item" data-movie-id="${movie.id}">
+                    <div class="watchlist-poster">
+                        <img src="${movie.poster}" alt="${movie.title}">
+                    </div>
+                    <div class="watchlist-info">
+                        <div class="watchlist-title">${movie.title}</div>
+                        <div class="watchlist-meta">${movie.year} • ${movie.genre.join(', ')}</div>
+                        <button class="remove-from-watchlist" data-movie-id="${movie.id}">Remove</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        // Add event listeners to watchlist items
+        document.querySelectorAll('.watchlist-item').forEach(item => {
+            item.addEventListener('click', (e) => {
+                if (!e.target.classList.contains('remove-from-watchlist')) {
+                    const movieId = parseInt(item.dataset.movieId);
+                    openMovieModal(movieId);
+                    document.getElementById('watchlistSidebar').classList.remove('active');
+                }
+            });
+        });
+        
+        // Add event listeners to remove buttons
+        document.querySelectorAll('.remove-from-watchlist').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const movieId = parseInt(btn.dataset.movieId);
+                removeFromWatchlist(movieId);
+            });
+        });
+    }
+
+    function addToWatchlist(movieId) {
+        const movie = movieDatabase.find(m => m.id === movieId);
+        if (movie && !watchlist.find(m => m.id === movieId)) {
+            watchlist.push(movie);
+            localStorage.setItem('movieWatchlist', JSON.stringify(watchlist));
+            updateWatchlistUI();
+            showNotification(`${movie.title} added to watchlist!`, 'success');
+        }
+    }
+
+    function removeFromWatchlist(movieId) {
+        const movie = watchlist.find(m => m.id === movieId);
+        watchlist = watchlist.filter(m => m.id !== movieId);
+        localStorage.setItem('movieWatchlist', JSON.stringify(watchlist));
+        updateWatchlistUI();
+        if (movie) {
+            showNotification(`${movie.title} removed from watchlist`, 'success');
+        }
+    }
+
+    // Movie player functionality
+    function openMoviePlayer(movieId) {
+        const movie = movieDatabase.find(m => m.id === movieId);
+        if (!movie) return;
+        
+        const player = document.getElementById('moviePlayer');
+        const video = document.getElementById('movieVideo');
+        const videoSource = video.querySelector('source');
+        
+        // Set movie details
+        document.getElementById('playerTitle').textContent = movie.title;
+        document.getElementById('playerYear').textContent = movie.year;
+        document.getElementById('playerGenre').textContent = movie.genre.join(', ');
+        document.getElementById('playerRating').textContent = `⭐ ${movie.rating}`;
+        
+        // Set video source
+        videoSource.src = movie.movieUrl;
+        video.load();
+        
+        // Show player
+        player.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+        
+        // Close modal if open
+        const modal = document.getElementById('movieModal');
+        modal.style.display = 'none';
+        
+        // Auto-play video
+        video.play().catch(e => {
+            console.log('Auto-play prevented:', e);
+            document.getElementById('videoOverlay').classList.add('active');
+        });
+    }
+
+    function closeMoviePlayer() {
+        const player = document.getElementById('moviePlayer');
+        const video = document.getElementById('movieVideo');
+        
+        video.pause();
+        video.currentTime = 0;
+        player.style.display = 'none';
+        player.classList.remove('minimized');
+        document.body.style.overflow = 'auto';
+    }
+
+    function minimizePlayer() {
+        const player = document.getElementById('moviePlayer');
+        player.classList.toggle('minimized');
+    }
+
+    function toggleFullscreen() {
+        const video = document.getElementById('movieVideo');
+        
+        if (document.fullscreenElement) {
+            document.exitFullscreen();
+        } else {
+            video.requestFullscreen().catch(e => {
+                console.log('Fullscreen failed:', e);
+            });
+        }
+    }
+
     // Initialize movies
     function initializeMovies() {
         loadMovies();
+        updateWatchlistUI();
         
         // Filter buttons
         const filterButtons = document.querySelectorAll('.filter-btn');
@@ -509,11 +653,12 @@ document.addEventListener('DOMContentLoaded', function() {
         const trailerContainer = document.getElementById('trailerContainer');
         const closeTrailerBtn = document.getElementById('closeTrailer');
         const trailerFrame = document.getElementById('trailerFrame');
+        const watchNowBtn = document.getElementById('watchNowBtn');
+        const addToWatchlistBtn = document.getElementById('addToWatchlistBtn');
         
         closeModal.addEventListener('click', () => {
             modal.style.display = 'none';
             document.body.style.overflow = 'auto';
-            // Stop trailer if playing
             trailerFrame.src = '';
             trailerContainer.style.display = 'none';
         });
@@ -526,9 +671,66 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
         
+        watchNowBtn.addEventListener('click', () => {
+            const movieId = parseInt(modal.dataset.movieId);
+            openMoviePlayer(movieId);
+        });
+        
+        addToWatchlistBtn.addEventListener('click', () => {
+            const movieId = parseInt(modal.dataset.movieId);
+            addToWatchlist(movieId);
+        });
+        
         closeTrailerBtn.addEventListener('click', () => {
             trailerFrame.src = '';
             trailerContainer.style.display = 'none';
+        });
+        
+        // Movie Player controls
+        const closePlayerBtn = document.getElementById('closePlayer');
+        const minimizePlayerBtn = document.getElementById('minimizePlayer');
+        const fullscreenPlayerBtn = document.getElementById('fullscreenPlayer');
+        const playButton = document.getElementById('playButton');
+        const video = document.getElementById('movieVideo');
+        const videoOverlay = document.getElementById('videoOverlay');
+        
+        closePlayerBtn.addEventListener('click', closeMoviePlayer);
+        minimizePlayerBtn.addEventListener('click', minimizePlayer);
+        fullscreenPlayerBtn.addEventListener('click', toggleFullscreen);
+        
+        playButton.addEventListener('click', () => {
+            video.play();
+            videoOverlay.classList.remove('active');
+        });
+        
+        video.addEventListener('play', () => {
+            videoOverlay.classList.remove('active');
+        });
+        
+        video.addEventListener('pause', () => {
+            if (!video.ended) {
+                videoOverlay.classList.add('active');
+            }
+        });
+        
+        // Watchlist sidebar
+        const floatingWatchlistBtn = document.getElementById('floatingWatchlistBtn');
+        const watchlistSidebar = document.getElementById('watchlistSidebar');
+        const closeSidebar = document.getElementById('closeSidebar');
+        
+        floatingWatchlistBtn.addEventListener('click', () => {
+            watchlistSidebar.classList.add('active');
+        });
+        
+        closeSidebar.addEventListener('click', () => {
+            watchlistSidebar.classList.remove('active');
+        });
+        
+        // Close sidebar when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!watchlistSidebar.contains(e.target) && !floatingWatchlistBtn.contains(e.target)) {
+                watchlistSidebar.classList.remove('active');
+            }
         });
         
         // Close modal when clicking outside
@@ -541,7 +743,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
         
-        // Keyboard navigation for modal
+        // Keyboard navigation
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
                 if (trailerContainer.style.display === 'block') {
@@ -550,7 +752,40 @@ document.addEventListener('DOMContentLoaded', function() {
                 } else if (modal.style.display === 'block') {
                     modal.style.display = 'none';
                     document.body.style.overflow = 'auto';
+                } else if (document.getElementById('moviePlayer').style.display === 'block') {
+                    closeMoviePlayer();
+                } else if (watchlistSidebar.classList.contains('active')) {
+                    watchlistSidebar.classList.remove('active');
                 }
+            }
+        });
+        
+        // Player action buttons
+        const likeBtn = document.getElementById('likeBtn');
+        const dislikeBtn = document.getElementById('dislikeBtn');
+        const saveBtn = document.getElementById('saveBtn');
+        
+        likeBtn.addEventListener('click', () => {
+            likeBtn.classList.toggle('active');
+            if (dislikeBtn.classList.contains('active')) {
+                dislikeBtn.classList.remove('active');
+            }
+        });
+        
+        dislikeBtn.addEventListener('click', () => {
+            dislikeBtn.classList.toggle('active');
+            if (likeBtn.classList.contains('active')) {
+                likeBtn.classList.remove('active');
+            }
+        });
+        
+        saveBtn.addEventListener('click', () => {
+            saveBtn.classList.toggle('active');
+            const movieId = parseInt(modal.dataset.movieId);
+            if (saveBtn.classList.contains('active')) {
+                addToWatchlist(movieId);
+            } else {
+                removeFromWatchlist(movieId);
             }
         });
     }
