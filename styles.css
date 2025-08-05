@@ -1582,6 +1582,355 @@ body {
     font-size: 0.7rem;
 }
 
+/* Egyptian Cinema Section */
+.egyptian-cinema {
+    padding: 120px 0;
+    position: relative;
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d1810 50%, #1a1a1a 100%);
+    overflow: hidden;
+}
+
+.egyptian-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    opacity: 0.1;
+}
+
+.pyramid-shapes {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.pyramid {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    animation: pyramidFloat 15s ease-in-out infinite;
+}
+
+.pyramid-1 {
+    border-left: 60px solid transparent;
+    border-right: 60px solid transparent;
+    border-bottom: 100px solid rgba(218, 165, 32, 0.3);
+    top: 20%;
+    left: 10%;
+    animation-delay: 0s;
+}
+
+.pyramid-2 {
+    border-left: 40px solid transparent;
+    border-right: 40px solid transparent;
+    border-bottom: 70px solid rgba(218, 165, 32, 0.2);
+    top: 60%;
+    right: 15%;
+    animation-delay: -5s;
+}
+
+.pyramid-3 {
+    border-left: 80px solid transparent;
+    border-right: 80px solid transparent;
+    border-bottom: 120px solid rgba(218, 165, 32, 0.15);
+    bottom: 20%;
+    left: 70%;
+    animation-delay: -10s;
+}
+
+.hieroglyphics {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.hieroglyph {
+    position: absolute;
+    font-size: 3rem;
+    color: rgba(218, 165, 32, 0.2);
+    animation: hieroglyphGlow 8s ease-in-out infinite alternate;
+}
+
+.hieroglyph-1 {
+    top: 15%;
+    right: 20%;
+    animation-delay: 0s;
+}
+
+.hieroglyph-2 {
+    top: 70%;
+    left: 15%;
+    animation-delay: -2s;
+}
+
+.hieroglyph-3 {
+    top: 40%;
+    right: 10%;
+    animation-delay: -4s;
+}
+
+.hieroglyph-4 {
+    bottom: 30%;
+    right: 60%;
+    animation-delay: -6s;
+}
+
+.egyptian-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 50px;
+    flex-wrap: wrap;
+}
+
+.tab-btn {
+    background: rgba(218, 165, 32, 0.1);
+    color: rgba(255, 255, 255, 0.8);
+    border: 2px solid rgba(218, 165, 32, 0.3);
+    padding: 20px 30px;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    min-width: 200px;
+    backdrop-filter: blur(10px);
+}
+
+.tab-btn:hover,
+.tab-btn.active {
+    background: rgba(218, 165, 32, 0.3);
+    border-color: #DAA520;
+    color: #DAA520;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(218, 165, 32, 0.3);
+}
+
+.tab-icon {
+    font-size: 2rem;
+}
+
+.tab-text {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.tab-text-ar {
+    font-size: 0.9rem;
+    font-weight: 400;
+    opacity: 0.8;
+    direction: rtl;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.egyptian-filters {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+}
+
+.egyptian-filter-btn {
+    background: rgba(218, 165, 32, 0.1);
+    color: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(218, 165, 32, 0.3);
+    padding: 10px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+}
+
+.egyptian-filter-btn:hover,
+.egyptian-filter-btn.active {
+    background: #DAA520;
+    color: #000;
+    border-color: #DAA520;
+    transform: translateY(-2px);
+}
+
+.egyptian-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.egyptian-card {
+    position: relative;
+    background: rgba(218, 165, 32, 0.05);
+    border: 1px solid rgba(218, 165, 32, 0.2);
+    border-radius: 15px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.egyptian-card:hover {
+    transform: translateY(-10px) rotateY(3deg);
+    box-shadow: 0 20px 40px rgba(218, 165, 32, 0.3);
+    border-color: #DAA520;
+}
+
+.egyptian-poster {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    overflow: hidden;
+}
+
+.egyptian-poster img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.egyptian-card:hover .egyptian-poster img {
+    transform: scale(1.05);
+}
+
+.egyptian-rating {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(218, 165, 32, 0.9);
+    color: #000;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.egyptian-year {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: rgba(0, 0, 0, 0.8);
+    color: #DAA520;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+}
+
+.egyptian-info {
+    padding: 20px;
+}
+
+.egyptian-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #DAA520;
+    margin-bottom: 8px;
+    line-height: 1.3;
+}
+
+.egyptian-title-ar {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: rgba(218, 165, 32, 0.8);
+    margin-bottom: 10px;
+    direction: rtl;
+    text-align: right;
+}
+
+.egyptian-meta {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+}
+
+.egyptian-genre,
+.egyptian-duration {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9rem;
+}
+
+.egyptian-overview {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.egyptian-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(218, 165, 32, 0.9);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: all 0.3s ease;
+    transform: translateY(20px);
+}
+
+.egyptian-card:hover .egyptian-overlay {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.egyptian-play-btn {
+    background: #000;
+    color: #DAA520;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 15px;
+}
+
+.egyptian-play-btn:hover {
+    background: #DAA520;
+    color: #000;
+    transform: scale(1.05);
+}
+
+.egyptian-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.egyptian-action-btn {
+    background: rgba(0, 0, 0, 0.8);
+    color: #DAA520;
+    border: 1px solid #DAA520;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.egyptian-action-btn:hover {
+    background: #DAA520;
+    color: #000;
+}
+
 /* Services Section */
 .services {
     padding: 120px 0;
@@ -1954,6 +2303,18 @@ body {
 @keyframes cinemaLights {
     0% { opacity: 0.3; transform: translateX(-50%) scaleY(1); }
     100% { opacity: 0.8; transform: translateX(-50%) scaleY(1.2); }
+}
+
+@keyframes pyramidFloat {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    25% { transform: translateY(-20px) rotate(2deg); }
+    50% { transform: translateY(-10px) rotate(-1deg); }
+    75% { transform: translateY(-30px) rotate(1deg); }
+}
+
+@keyframes hieroglyphGlow {
+    0% { opacity: 0.2; transform: scale(1); }
+    100% { opacity: 0.4; transform: scale(1.1); }
 }
 
 /* Responsive Design */

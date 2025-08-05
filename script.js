@@ -342,7 +342,184 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     ];
 
+    // Egyptian Films and Series Database
+    const egyptianFilmsDatabase = [
+        {
+            id: 101,
+            title: "The Yacoubian Building",
+            titleAr: "عمارة يعقوبيان",
+            year: 2006,
+            genre: ["Drama", "Social"],
+            rating: 8.2,
+            duration: "165 min",
+            overview: "A dramatic portrayal of Egyptian society through the residents of a famous Cairo building, exploring themes of corruption, love, and social inequality.",
+            poster: "https://image.tmdb.org/t/p/w500/yacoubian.jpg",
+            movieUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+            category: "drama",
+            type: "film"
+        },
+        {
+            id: 102,
+            title: "The Blue Elephant",
+            titleAr: "الفيل الأزرق",
+            year: 2014,
+            genre: ["Thriller", "Mystery"],
+            rating: 8.5,
+            duration: "170 min",
+            overview: "A psychological thriller about a psychiatrist who must face his past when treating a dangerous patient in a mental hospital.",
+            poster: "https://image.tmdb.org/t/p/w500/blue_elephant.jpg",
+            movieUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+            category: "modern",
+            type: "film"
+        },
+        {
+            id: 103,
+            title: "The School of Mischief",
+            titleAr: "مدرسة المشاغبين",
+            year: 1973,
+            genre: ["Comedy", "Drama"],
+            rating: 9.1,
+            duration: "251 min",
+            overview: "A classic Egyptian comedy about a strict teacher who tries to reform a group of mischievous students, starring Adel Imam.",
+            poster: "https://image.tmdb.org/t/p/w500/school_mischief.jpg",
+            movieUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+            category: "classic",
+            type: "film"
+        },
+        {
+            id: 104,
+            title: "Cairo Station",
+            titleAr: "باب الحديد",
+            year: 1958,
+            genre: ["Drama", "Crime"],
+            rating: 8.8,
+            duration: "77 min",
+            overview: "Youssef Chahine's masterpiece about the social dynamics and struggles of people working at Cairo's main railway station.",
+            poster: "https://image.tmdb.org/t/p/w500/cairo_station.jpg",
+            movieUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
+            category: "classic",
+            type: "film"
+        },
+        {
+            id: 105,
+            title: "Terrorism and Kebab",
+            titleAr: "الإرهاب والكباب",
+            year: 1992,
+            genre: ["Comedy", "Social"],
+            rating: 8.7,
+            duration: "105 min",
+            overview: "A satirical comedy starring Adel Imam about bureaucracy and corruption in Egyptian government offices.",
+            poster: "https://image.tmdb.org/t/p/w500/terrorism_kebab.jpg",
+            movieUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4",
+            category: "comedy",
+            type: "film"
+        },
+        {
+            id: 106,
+            title: "Clash",
+            titleAr: "اشتباك",
+            year: 2016,
+            genre: ["Drama", "Thriller"],
+            rating: 7.4,
+            duration: "97 min",
+            overview: "A tense drama set entirely inside a police van during the political turmoil in Egypt, showing different perspectives of society.",
+            poster: "https://image.tmdb.org/t/p/w500/clash.jpg",
+            movieUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4",
+            category: "modern",
+            type: "film"
+        }
+    ];
+
+    const egyptianSeriesDatabase = [
+        {
+            id: 201,
+            title: "Grand Hotel",
+            titleAr: "جراند أوتيل",
+            year: 2016,
+            genre: ["Drama", "Mystery"],
+            rating: 8.9,
+            duration: "30 episodes",
+            overview: "A Ramadan series about the secrets and mysteries surrounding a luxury hotel and its wealthy guests in 1950s Cairo.",
+            poster: "https://image.tmdb.org/t/p/w500/grand_hotel.jpg",
+            movieUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4",
+            category: "ramadan",
+            type: "series"
+        },
+        {
+            id: 202,
+            title: "The Community",
+            titleAr: "الجماعة",
+            year: 2010,
+            genre: ["Historical", "Drama"],
+            rating: 8.6,
+            duration: "30 episodes",
+            overview: "A historical drama series about the Muslim Brotherhood movement in Egypt from the 1940s to the 1980s.",
+            poster: "https://image.tmdb.org/t/p/w500/community.jpg",
+            movieUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4",
+            category: "historical",
+            type: "series"
+        },
+        {
+            id: 203,
+            title: "Abdel Kader the Foreigner",
+            titleAr: "عبد القادر الأجنبي",
+            year: 2012,
+            genre: ["Comedy", "Social"],
+            rating: 8.3,
+            duration: "30 episodes",
+            overview: "A comedy series about an Egyptian man who pretends to be a foreigner to get better treatment in his own country.",
+            poster: "https://image.tmdb.org/t/p/w500/abdel_kader.jpg",
+            movieUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackOnStreetAndDirt.mp4",
+            category: "comedy",
+            type: "series"
+        },
+        {
+            id: 204,
+            title: "The King",
+            titleAr: "الملك",
+            year: 2020,
+            genre: ["Historical", "Drama"],
+            rating: 9.2,
+            duration: "30 episodes",
+            overview: "A historical epic about the life of King Farouk, the last king of Egypt, and the political events that led to the 1952 revolution.",
+            poster: "https://image.tmdb.org/t/p/w500/king.jpg",
+            movieUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4",
+            category: "historical",
+            type: "series"
+        },
+        {
+            id: 205,
+            title: "Choice",
+            titleAr: "الاختيار",
+            year: 2020,
+            genre: ["Action", "Drama"],
+            rating: 9.5,
+            duration: "30 episodes",
+            overview: "A gripping series about Egyptian special forces and their fight against terrorism, based on real events.",
+            poster: "https://image.tmdb.org/t/p/w500/choice.jpg",
+            movieUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/VolkswagenGTIReview.mp4",
+            category: "social",
+            type: "series"
+        },
+        {
+            id: 206,
+            title: "Ramadan Kareem",
+            titleAr: "رمضان كريم",
+            year: 2017,
+            genre: ["Comedy", "Family"],
+            rating: 8.1,
+            duration: "30 episodes",
+            overview: "A Ramadan comedy series about a middle-class Egyptian family and their daily struggles and humorous situations.",
+            poster: "https://image.tmdb.org/t/p/w500/ramadan_kareem.jpg",
+            movieUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WhatCarCanYouGetForAGrand.mp4",
+            category: "ramadan",
+            type: "series"
+        }
+    ];
+
     let currentMovies = [...movieDatabase];
+    let currentEgyptianContent = [...egyptianFilmsDatabase];
+    let activeEgyptianTab = 'films';
     let displayedMovies = 0;
     const moviesPerLoad = 6;
 
@@ -557,22 +734,26 @@ document.addEventListener('DOMContentLoaded', function() {
     let currentQuality = 'auto';
     let subtitlesEnabled = false;
 
-    function openMoviePlayer(movieId) {
-        const movie = movieDatabase.find(m => m.id === movieId);
-        if (!movie) return;
+    function openMoviePlayer(contentId) {
+        // Find content in all databases
+        let content = movieDatabase.find(m => m.id === contentId) || 
+                     egyptianFilmsDatabase.find(c => c.id === contentId) ||
+                     egyptianSeriesDatabase.find(c => c.id === contentId);
+        
+        if (!content) return;
         
         const player = document.getElementById('moviePlayer');
         const video = document.getElementById('movieVideo');
         const videoSource = video.querySelector('source');
         
-        // Set movie details
-        document.getElementById('playerTitle').textContent = movie.title;
-        document.getElementById('playerYear').textContent = movie.year;
-        document.getElementById('playerGenre').textContent = movie.genre.join(', ');
-        document.getElementById('playerRating').textContent = `⭐ ${movie.rating}`;
+        // Set content details
+        document.getElementById('playerTitle').textContent = content.title + (content.titleAr ? ` | ${content.titleAr}` : '');
+        document.getElementById('playerYear').textContent = content.year;
+        document.getElementById('playerGenre').textContent = content.genre.join(', ');
+        document.getElementById('playerRating').textContent = `⭐ ${content.rating}`;
         
         // Set video source
-        videoSource.src = movie.movieUrl;
+        videoSource.src = content.movieUrl;
         video.load();
         
         // Initialize custom controls
@@ -819,10 +1000,174 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    // Egyptian content functionality
+    function createEgyptianCard(content) {
+        return `
+            <div class="egyptian-card" data-content-id="${content.id}" data-category="${content.category}">
+                <div class="egyptian-poster">
+                    <img src="${content.poster}" alt="${content.title}" loading="lazy" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjgwIiBoZWlnaHQ9IjQwMCIgdmlld0JveD0iMCAwIDI4MCA0MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyODAiIGhlaWdodD0iNDAwIiBmaWxsPSJyZ2JhKDIxOCwgMTY1LCAzMiwgMC4xKSIvPgo8dGV4dCB4PSIxNDAiIHk9IjIwMCIgZmlsbD0iIzAwZDRmZiIgZm9udC1zaXplPSIyNCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+8J+OrTwvdGV4dD4KPC9zdmc+'">
+                    <div class="egyptian-rating">⭐ ${content.rating}</div>
+                    <div class="egyptian-year">${content.year}</div>
+                </div>
+                <div class="egyptian-info">
+                    <h3 class="egyptian-title">${content.title}</h3>
+                    <div class="egyptian-title-ar">${content.titleAr}</div>
+                    <div class="egyptian-meta">
+                        <span class="egyptian-genre">${content.genre.join(', ')}</span>
+                        <span class="egyptian-duration">${content.duration}</span>
+                    </div>
+                    <p class="egyptian-overview">${content.overview}</p>
+                </div>
+                <div class="egyptian-overlay">
+                    <button class="egyptian-play-btn">▶ Watch Now</button>
+                    <div class="egyptian-actions">
+                        <button class="egyptian-action-btn">+ Watchlist</button>
+                        <button class="egyptian-action-btn">ℹ Details</button>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
+    function loadEgyptianContent(contentType = 'films') {
+        const grid = document.getElementById(contentType === 'films' ? 'egyptianFilmsGrid' : 'egyptianSeriesGrid');
+        const database = contentType === 'films' ? egyptianFilmsDatabase : egyptianSeriesDatabase;
+        
+        grid.innerHTML = '';
+        database.forEach(content => {
+            grid.innerHTML += createEgyptianCard(content);
+        });
+        
+        addEgyptianCardListeners();
+    }
+
+    function addEgyptianCardListeners() {
+        const egyptianCards = document.querySelectorAll('.egyptian-card');
+        egyptianCards.forEach(card => {
+            const playBtn = card.querySelector('.egyptian-play-btn');
+            const watchlistBtn = card.querySelector('.egyptian-action-btn');
+            
+            playBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const contentId = parseInt(card.dataset.contentId);
+                openEgyptianPlayer(contentId);
+            });
+            
+            watchlistBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const contentId = parseInt(card.dataset.contentId);
+                addEgyptianToWatchlist(contentId);
+            });
+            
+            // 3D hover effect
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const rotateY = (x - centerX) / centerX * 8;
+                const rotateX = (centerY - y) / centerY * 8;
+                
+                card.style.transform = `translateY(-10px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = '';
+            });
+        });
+    }
+
+    function openEgyptianPlayer(contentId) {
+        // Find content in both databases
+        let content = egyptianFilmsDatabase.find(c => c.id === contentId) || 
+                     egyptianSeriesDatabase.find(c => c.id === contentId);
+        
+        if (content) {
+            openMoviePlayer(content.id);
+        }
+    }
+
+    function addEgyptianToWatchlist(contentId) {
+        let content = egyptianFilmsDatabase.find(c => c.id === contentId) || 
+                     egyptianSeriesDatabase.find(c => c.id === contentId);
+        
+        if (content) {
+            addToWatchlist(content.id);
+        }
+    }
+
+    function filterEgyptianContent(category, contentType) {
+        const database = contentType === 'films' ? egyptianFilmsDatabase : egyptianSeriesDatabase;
+        const grid = document.getElementById(contentType === 'films' ? 'egyptianFilmsGrid' : 'egyptianSeriesGrid');
+        
+        let filteredContent;
+        if (category === 'all') {
+            filteredContent = database;
+        } else {
+            filteredContent = database.filter(content => content.category === category);
+        }
+        
+        grid.innerHTML = '';
+        filteredContent.forEach(content => {
+            grid.innerHTML += createEgyptianCard(content);
+        });
+        
+        addEgyptianCardListeners();
+    }
+
+    function initializeEgyptianSection() {
+        // Load initial content
+        loadEgyptianContent('films');
+        loadEgyptianContent('series');
+        
+        // Tab switching
+        const tabButtons = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+        
+        tabButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const targetTab = btn.dataset.tab;
+                
+                // Remove active class from all tabs and contents
+                tabButtons.forEach(b => b.classList.remove('active'));
+                tabContents.forEach(c => c.classList.remove('active'));
+                
+                // Add active class to clicked tab and corresponding content
+                btn.classList.add('active');
+                document.getElementById(targetTab + '-content').classList.add('active');
+                
+                activeEgyptianTab = targetTab;
+            });
+        });
+        
+        // Filter buttons for films
+        const filmFilters = document.querySelectorAll('#films-content .egyptian-filter-btn');
+        filmFilters.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filmFilters.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                filterEgyptianContent(btn.dataset.filter, 'films');
+            });
+        });
+        
+        // Filter buttons for series
+        const seriesFilters = document.querySelectorAll('#series-content .egyptian-filter-btn');
+        seriesFilters.forEach(btn => {
+            btn.addEventListener('click', () => {
+                seriesFilters.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                filterEgyptianContent(btn.dataset.filter, 'series');
+            });
+        });
+    }
+
     // Initialize movies
     function initializeMovies() {
         loadMovies();
         updateWatchlistUI();
+        initializeEgyptianSection();
         
         // Filter buttons
         const filterButtons = document.querySelectorAll('.filter-btn');

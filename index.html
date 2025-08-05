@@ -32,6 +32,7 @@
                 <li><a href="#home" class="nav-link">Home</a></li>
                 <li><a href="#about" class="nav-link">About</a></li>
                 <li><a href="#portfolio" class="nav-link">Movies</a></li>
+                <li><a href="#egyptian" class="nav-link">Egyptian Cinema</a></li>
                 <li><a href="#services" class="nav-link">Services</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
@@ -318,8 +319,76 @@
          <span class="watchlist-count" id="watchlistCount">0</span>
      </button>
 
-     <!-- Services Section -->
-    <section id="services" class="services">
+           <!-- Egyptian Cinema Section -->
+      <section id="egyptian" class="egyptian-cinema">
+          <div class="egyptian-bg">
+              <div class="pyramid-shapes">
+                  <div class="pyramid pyramid-1"></div>
+                  <div class="pyramid pyramid-2"></div>
+                  <div class="pyramid pyramid-3"></div>
+              </div>
+              <div class="hieroglyphics">
+                  <div class="hieroglyph hieroglyph-1">𓂀</div>
+                  <div class="hieroglyph hieroglyph-2">𓈖</div>
+                  <div class="hieroglyph hieroglyph-3">𓊪</div>
+                  <div class="hieroglyph hieroglyph-4">𓋹</div>
+              </div>
+          </div>
+          
+          <div class="container">
+              <div class="section-header">
+                  <h2 class="section-title">Egyptian Cinema</h2>
+                  <p class="section-subtitle">الأفلام والمسلسلات المصرية | Egyptian Films & Series</p>
+              </div>
+              
+              <!-- Egyptian Content Tabs -->
+              <div class="egyptian-tabs">
+                  <button class="tab-btn active" data-tab="films">
+                      <span class="tab-icon">🎬</span>
+                      <span class="tab-text">Egyptian Films</span>
+                      <span class="tab-text-ar">الأفلام المصرية</span>
+                  </button>
+                  <button class="tab-btn" data-tab="series">
+                      <span class="tab-icon">📺</span>
+                      <span class="tab-text">Egyptian Series</span>
+                      <span class="tab-text-ar">المسلسلات المصرية</span>
+                  </button>
+              </div>
+              
+              <!-- Egyptian Films Content -->
+              <div class="tab-content active" id="films-content">
+                  <div class="egyptian-filters">
+                      <button class="egyptian-filter-btn active" data-filter="all">All Films</button>
+                      <button class="egyptian-filter-btn" data-filter="classic">Classic</button>
+                      <button class="egyptian-filter-btn" data-filter="modern">Modern</button>
+                      <button class="egyptian-filter-btn" data-filter="comedy">Comedy</button>
+                      <button class="egyptian-filter-btn" data-filter="drama">Drama</button>
+                  </div>
+                  
+                  <div class="egyptian-grid" id="egyptianFilmsGrid">
+                      <!-- Egyptian films will be loaded here -->
+                  </div>
+              </div>
+              
+              <!-- Egyptian Series Content -->
+              <div class="tab-content" id="series-content">
+                  <div class="egyptian-filters">
+                      <button class="egyptian-filter-btn active" data-filter="all">All Series</button>
+                      <button class="egyptian-filter-btn" data-filter="ramadan">Ramadan</button>
+                      <button class="egyptian-filter-btn" data-filter="historical">Historical</button>
+                      <button class="egyptian-filter-btn" data-filter="social">Social</button>
+                      <button class="egyptian-filter-btn" data-filter="comedy">Comedy</button>
+                  </div>
+                  
+                  <div class="egyptian-grid" id="egyptianSeriesGrid">
+                      <!-- Egyptian series will be loaded here -->
+                  </div>
+              </div>
+          </div>
+      </section>
+
+      <!-- Services Section -->
+      <section id="services" class="services">
         <div class="services-3d-bg">
             <div class="floating-orbs">
                 <div class="orb orb-1"></div>
