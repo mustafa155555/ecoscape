@@ -1,10 +1,10 @@
-class CustomLinkShortener {
+class URLShortener {
     constructor() {
         this.initializeElements();
         this.bindEvents();
         this.currentShortLink = null;
         this.recentLinks = this.loadRecentLinks();
-        this.baseUrl = 'short.ly'; // You can change this to your domain
+        this.baseUrl = 'short.ly';
         this.updateRecentLinksDisplay();
     }
 
@@ -20,14 +20,9 @@ class CustomLinkShortener {
         this.errorMessage = document.getElementById('errorMessage');
         this.copyBtn = document.getElementById('copyBtn');
         this.testBtn = document.getElementById('testBtn');
-        this.newLinkBtn = document.getElementById('newLinkBtn');
-        this.qrBtn = document.getElementById('qrBtn');
-        this.createdDate = document.getElementById('createdDate');
+        this.newBtn = document.getElementById('newBtn');
         this.recentLinksSection = document.getElementById('recentLinks');
         this.linksList = document.getElementById('linksList');
-        this.qrModal = document.getElementById('qrModal');
-        this.closeQrModal = document.getElementById('closeQrModal');
-        this.qrCode = document.getElementById('qrCode');
     }
 
     bindEvents() {
@@ -40,16 +35,8 @@ class CustomLinkShortener {
         });
         this.copyBtn.addEventListener('click', () => this.copyShortLink());
         this.testBtn.addEventListener('click', () => this.testShortLink());
-        this.newLinkBtn.addEventListener('click', () => this.resetForm());
-        this.qrBtn.addEventListener('click', () => this.generateQRCode());
-        this.closeQrModal.addEventListener('click', () => this.closeModal());
+        this.newBtn.addEventListener('click', () => this.resetForm());
         
-        // Close modal when clicking outside
-        this.qrModal.addEventListener('click', (e) => {
-            if (e.target === this.qrModal) this.closeModal();
-        });
-
-        // Auto-generate slug when typing in long URL
         this.longUrlInput.addEventListener('input', () => {
             if (!this.customSlugInput.value) {
                 this.generateSlugFromUrl();
@@ -57,7 +44,7 @@ class CustomLinkShortener {
         });
     }
 
-    async createShortLink() {
+    createShortLink() {
         const longUrl = this.longUrlInput.value.trim();
         const customSlug = this.customSlugInput.value.trim();
         
@@ -84,14 +71,12 @@ class CustomLinkShortener {
             const slug = customSlug || this.generateRandomSlug();
             const shortUrl = `https://${this.baseUrl}/${slug}`;
             
-            // Check if slug already exists
             if (this.slugExists(slug)) {
                 if (customSlug) {
                     this.showError('This custom slug is already taken. Please choose a different one.');
                     this.hideLoading();
                     return;
                 } else {
-                    // Generate a new random slug
                     const newSlug = this.generateRandomSlug();
                     const newShortUrl = `https://${this.baseUrl}/${newSlug}`;
                     this.saveShortLink(longUrl, newShortUrl, newSlug);
@@ -121,7 +106,6 @@ class CustomLinkShortener {
         this.currentShortLink = linkData;
         this.recentLinks.unshift(linkData);
         
-        // Keep only the last 10 links
         if (this.recentLinks.length > 10) {
             this.recentLinks = this.recentLinks.slice(0, 10);
         }
@@ -135,7 +119,6 @@ class CustomLinkShortener {
     displayShortLink() {
         this.shortUrlDisplay.textContent = this.currentShortLink.shortUrl;
         this.originalUrlDisplay.textContent = this.currentShortLink.longUrl;
-        this.createdDate.textContent = new Date(this.currentShortLink.createdAt).toLocaleDateString();
     }
 
     generateRandomSlug() {
@@ -215,38 +198,11 @@ class CustomLinkShortener {
     testShortLink() {
         if (!this.currentShortLink) return;
         
-        // Increment click count
         this.currentShortLink.clicks++;
         this.saveRecentLinks();
         this.updateRecentLinksDisplay();
         
-        // Open link in new tab
         window.open(this.currentShortLink.longUrl, '_blank');
-    }
-
-    generateQRCode() {
-        if (!this.currentShortLink) return;
-        
-        this.qrCode.innerHTML = '';
-        QRCode.toCanvas(this.qrCode, this.currentShortLink.shortUrl, {
-            width: 200,
-            margin: 2,
-            color: {
-                dark: '#667eea',
-                light: '#ffffff'
-            }
-        }, (error) => {
-            if (error) {
-                console.error('QR Code generation error:', error);
-                this.showError('Failed to generate QR code');
-            }
-        });
-        
-        this.qrModal.style.display = 'flex';
-    }
-
-    closeModal() {
-        this.qrModal.style.display = 'none';
     }
 
     resetForm() {
@@ -316,10 +272,6 @@ class CustomLinkShortener {
 
     showResult() {
         this.resultSection.style.display = 'block';
-        this.resultSection.classList.add('success');
-        setTimeout(() => {
-            this.resultSection.classList.remove('success');
-        }, 600);
     }
 
     hideResult() {
@@ -336,22 +288,19 @@ class CustomLinkShortener {
     }
 
     showCopySuccess() {
-        const originalText = this.copyBtn.innerHTML;
-        this.copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
-        this.copyBtn.style.background = 'var(--success-color)';
-        this.copyBtn.style.borderColor = 'var(--success-color)';
+        const originalText = this.copyBtn.textContent;
+        this.copyBtn.textContent = 'Copied!';
+        this.copyBtn.style.background = '#28a745';
         this.copyBtn.style.color = 'white';
         
         setTimeout(() => {
-            this.copyBtn.innerHTML = originalText;
+            this.copyBtn.textContent = originalText;
             this.copyBtn.style.background = '';
-            this.copyBtn.style.borderColor = '';
             this.copyBtn.style.color = '';
         }, 2000);
     }
 }
 
-// Initialize the application when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-    new CustomLinkShortener();
+    new URLShortener();
 });

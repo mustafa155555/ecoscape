@@ -1,32 +1,31 @@
-# Custom Link Shortener
+# URL Shortener
 
-A modern, responsive web application that converts long URLs into clean, customizable short links. Perfect for creating memorable, branded links for social media, marketing campaigns, or any web content.
+A simple, clean URL shortener that converts long URLs into short, customizable links. Minimal design focused on functionality.
 
 ## Features
 
-- **Custom Short Links**: Create memorable, branded short URLs
+- **Simple Interface**: Clean, minimal design without distractions
+- **Custom Slugs**: Create memorable short URLs
 - **Auto-Slug Generation**: Automatically suggests slugs based on the original URL
-- **Responsive Design**: Works perfectly on desktop, tablet, and mobile devices
-- **Local Storage**: Saves your recent links for easy access
-- **QR Code Generation**: Generate QR codes for your short links
+- **Recent Links**: Saves your recent links for easy access
 - **Click Tracking**: Track how many times your links are clicked
 - **Copy & Test**: Easy copy to clipboard and test functionality
-- **Modern UI**: Clean, professional design with smooth animations
+- **Responsive**: Works on desktop and mobile devices
 
 ## How to Use
 
 1. **Enter a URL**: Paste any long URL into the input field
 2. **Customize (Optional)**: Add a custom slug for your short link
-3. **Create Short Link**: Click "Create Short Link" or press Enter
-4. **Use Your Link**: Copy, test, or generate QR code for your new short link
+3. **Create Short Link**: Click "Shorten URL" or press Enter
+4. **Use Your Link**: Copy, test, or create another link
 
 ## Quick Start
 
 1. Open `index.html` in your web browser
-2. Enter a long URL (e.g., `https://example.com/very-long-url-that-needs-shortening`)
-3. Optionally add a custom slug (e.g., `my-custom-link`)
-4. Click "Create Short Link"
-5. Use your new short link: `short.ly/my-custom-link`
+2. Enter a long URL (e.g., `https://example.com/very-long-url`)
+3. Optionally add a custom slug (e.g., `my-link`)
+4. Click "Shorten URL"
+5. Use your new short link: `short.ly/my-link`
 
 ## Features in Detail
 
@@ -40,16 +39,11 @@ A modern, responsive web application that converts long URLs into clean, customi
 - Click on any recent link to recreate it
 - View click statistics and creation dates
 
-### QR Code Generation
-- Generate QR codes for easy mobile sharing
-- Customizable colors and size
-- Perfect for print materials and presentations
-
-### Responsive Design
-- Mobile-first approach
-- Works on all screen sizes
-- Touch-friendly interface
-- Optimized for mobile browsers
+### Simple Design
+- Clean, minimal interface
+- No distracting animations or effects
+- Focus on functionality over aesthetics
+- Easy to use on any device
 
 ## Technical Details
 
@@ -78,9 +72,8 @@ this.baseUrl = 'your-domain.com'; // Change this to your domain
 
 ### Styling
 Modify `styles.css` to customize:
-- Colors and gradients
-- Typography and spacing
-- Animations and transitions
+- Colors and fonts
+- Layout and spacing
 - Mobile breakpoints
 
 ### Functionality
@@ -94,7 +87,7 @@ Edit `script.js` to:
 
 ```
 ├── index.html          # Main HTML file
-├── styles.css          # CSS styles and responsive design
+├── styles.css          # CSS styles
 ├── script.js           # JavaScript functionality
 └── README.md          # This file
 ```
@@ -114,7 +107,6 @@ Potential features to add:
 - Password protection for links
 - Bulk link creation
 - API integration for server-side storage
-- Social media sharing buttons
 
 ## License
 
