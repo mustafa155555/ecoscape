@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProLink - Professional URL Shortener</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_PUBLISHER_ID" crossorigin="anonymous"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-link"></i>
+                <span>ProLink</span>
+            </div>
+            <div class="nav-controls">
+                <button id="themeToggle" class="theme-toggle">
+                    <i class="fas fa-sun"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-container">
+            <h1>Professional URL Shortener</h1>
+            <p>Transform long URLs into clean, branded short links with advanced analytics</p>
+        </div>
+    </header>
+
+    <main>
+        <section class="shortener-section">
+            <div class="container">
+                <div class="shortener-card">
+                    <h2>Create Your Short Link</h2>
+                    <div class="form">
+                        <div class="input-group">
+                            <label for="longUrl">Original URL</label>
+                            <input type="url" id="longUrl" placeholder="https://example.com/very-long-url-that-needs-shortening" required>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="customSlug">Custom Slug (Optional)</label>
+                            <div class="slug-input">
+                                <span class="domain">prolink.co/</span>
+                                <input type="text" id="customSlug" placeholder="my-brand" maxlength="20">
+                            </div>
+                            <small>Use letters, numbers, hyphens, and underscores only</small>
+                        </div>
+
+                        <button id="shortenBtn" class="btn-primary">
+                            <i class="fas fa-magic"></i>
+                            Create Short Link
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Ad Space 1: Between shortener and result -->
+        <section class="ad-section" id="adSection1">
+            <div class="container">
+                <div class="ad-container">
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-YOUR_PUBLISHER_ID"
+                         data-ad-slot="YOUR_AD_SLOT_1"
+                         data-ad-format="auto"
+                         data-full-width-responsive="true"></ins>
+                    <script>
+                         (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+            </div>
+        </section>
+
+        <section class="result-section" id="resultSection" style="display: none;">
+            <div class="container">
+                <div class="result-card">
+                    <h2>Your Short Link</h2>
+                    <div class="link-display">
+                        <div class="short-url" id="shortUrlDisplay"></div>
+                        <div class="original-url" id="originalUrlDisplay"></div>
+                    </div>
+                    
+                    <div class="link-stats">
+                        <div class="stat-item">
+                            <i class="fas fa-chart-line"></i>
+                            <span>0 clicks</span>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-calendar"></i>
+                            <span id="createdDate"></span>
+                        </div>
+                    </div>
+
+                    <div class="link-actions">
+                        <button id="copyBtn" class="btn-secondary">
+                            <i class="fas fa-copy"></i>
+                            Copy Link
+                        </button>
+                        <button id="testBtn" class="btn-secondary">
+                            <i class="fas fa-external-link-alt"></i>
+                            Test Link
+                        </button>
+                        <button id="qrBtn" class="btn-secondary">
+                            <i class="fas fa-qrcode"></i>
+                            QR Code
+                        </button>
+                        <button id="newBtn" class="btn-outline">
+                            <i class="fas fa-plus"></i>
+                            New Link
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="loading-section" id="loading" style="display: none;">
+            <div class="container">
+                <div class="loading-card">
+                    <div class="spinner"></div>
+                    <p>Creating your professional short link...</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="error-section" id="error" style="display: none;">
+            <div class="container">
+                <div class="error-card">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <p id="errorMessage">An error occurred while creating your short link.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="recent-section" id="recentLinks" style="display: none;">
+            <div class="container">
+                <div class="recent-card">
+                    <h2>Recent Links</h2>
+                    <div class="links-grid" id="linksList"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Ad Space 2: Between recent links and features -->
+        <section class="ad-section" id="adSection2">
+            <div class="container">
+                <div class="ad-container">
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-YOUR_PUBLISHER_ID"
+                         data-ad-slot="YOUR_AD_SLOT_2"
+                         data-ad-format="auto"
+                         data-full-width-responsive="true"></ins>
+                    <script>
+                         (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+            </div>
+        </section>
+
+        <section class="features-section">
+            <div class="container">
+                <h2>Why Choose ProLink?</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-palette"></i>
+                        </div>
+                        <h3>Custom Branding</h3>
+                        <p>Create memorable, branded short links that reflect your business identity</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                        <h3>Advanced Analytics</h3>
+                        <p>Track clicks, engagement, and performance with detailed analytics</p>
+                    </div>
+                    
+                    <!-- Ad Space 3: Inline ad within features -->
+                    <div class="ad-inline" id="adSection3">
+                        <ins class="adsbygoogle"
+                             style="display:block"
+                             data-ad-client="ca-pub-YOUR_PUBLISHER_ID"
+                             data-ad-slot="YOUR_AD_SLOT_3"
+                             data-ad-format="auto"
+                             data-full-width-responsive="true"></ins>
+                        <script>
+                             (adsbygoogle = window.adsbygoogle || []).push({});
+                        </script>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>Secure & Reliable</h3>
+                        <p>Enterprise-grade security with 99.9% uptime guarantee</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <h3>Mobile Optimized</h3>
+                        <p>Perfect experience across all devices and platforms</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="stats-section">
+            <div class="container">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number">1M+</div>
+                        <div class="stat-label">Links Created</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">50M+</div>
+                        <div class="stat-label">Clicks Tracked</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">99.9%</div>
+                        <div class="stat-label">Uptime</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">24/7</div>
+                        <div class="stat-label">Support</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Ad Space 4: Before footer -->
+        <section class="ad-section" id="adSection4">
+            <div class="container">
+                <div class="ad-container">
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-YOUR_PUBLISHER_ID"
+                         data-ad-slot="YOUR_AD_SLOT_4"
+                         data-ad-format="auto"
+                         data-full-width-responsive="true"></ins>
+                    <script>
+                         (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <i class="fas fa-link"></i>
+                    <span>ProLink</span>
+                </div>
+                <div class="footer-links">
+                    <a href="#privacy">Privacy Policy</a>
+                    <a href="#terms">Terms of Service</a>
+                    <a href="#contact">Contact</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 ProLink. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- QR Code Modal -->
+    <div class="modal" id="qrModal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>QR Code</h3>
+                <button class="close-btn" id="closeQrModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="qrCode"></div>
+                <p>Scan this QR code to visit your short link</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
