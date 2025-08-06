@@ -1,0 +1,44 @@
+{
+  "name": "AI Background Remover",
+  "short_name": "AI BGRemover",
+  "description": "Professional AI-powered background removal tool with instant results",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#00d4ff",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5MiIgdmlld0JveD0iMCAwIDE5MiAxOTIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxOTIiIGhlaWdodD0iMTkyIiByeD0iMjQiIGZpbGw9IiMwMGE0ZmYiLz4KPHBhdGggZD0iTTk2IDQ4QzY5LjQ5IDQ4IDQ4IDY5LjQ5IDQ4IDk2czIxLjQ5IDQ4IDQ4IDQ4IDQ4LTIxLjQ5IDQ4LTQ4UzEyMi41MSA0OCA5NiA0OHptMCA4MGMtMTcuNjcgMC0zMi0xNC4zMy0zMi0zMnMxNC4zMy0zMiAzMi0zMiAzMiAxNC4zMyAzMiAzMi0xNC4zMyAzMi0zMiAzMnoiIGZpbGw9IndoaXRlIi8+CjxwYXRoIGQ9Ik0xNDQgOTZIMTQ0LjA0TDE0NCA5NkMxNDQgODguODQgMTM4LjE2IDgzIDEzMSA4M0g2MUM1My44NCA4MyA0OCA4OC44NCA0OCA5NlY5NkM0OCAxMDMuMTYgNTMuODQgMTA5IDYxIDEwOUgxMzFDMTM4LjE2IDEwOSAxNDQgMTAzLjE2IDE0NCA5NloiIGZpbGw9IndoaXRlIi8+Cjwvc3ZnPgo=",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgdmlld0JveD0iMCAwIDUxMiA1MTIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiByeD0iNjQiIGZpbGw9IiMwMGE0ZmYiLz4KPHBhdGggZD0iTTI1NiAxMjhDMTg1LjMxIDEyOCAxMjggMTg1LjMxIDEyOCAyNTZzNTcuMzEgMTI4IDEyOCAxMjggMTI4LTU3LjMxIDEyOC0xMjhTMzI2LjY5IDEyOCAyNTYgMTI4em0wIDIxNGMtNDcuMTEgMC04Ni0zOC44OS04Ni04NnMzOC44OS04NiA4Ni04NiA4NiAzOC44OSA4NiA4Ni0zOC44OSA4Ni04NiA4NnoiIGZpbGw9IndoaXRlIi8+CjxwYXRoIGQ9Ik0zODQgMjU2SDM4NC4xTDM4NCAyNTZDMzg0IDIzNi42NyAzNjguMzMgMjIxIDM0OSAyMjFIMTYzQzE0My42NyAyMjEgMTI4IDIzNi42NyAxMjggMjU2VjI1NkMxMjggMjc1LjMzIDE0My42NyAyOTEgMTYzIDI5MUgzNDlDMzY4LjMzIDI5MSAzODQgMjc1LjMzIDM4NCAyNTZaIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4K",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["photo", "productivity", "utilities"],
+  "lang": "en",
+  "dir": "ltr",
+  "scope": "/",
+  "prefer_related_applications": false,
+  "related_applications": [],
+  "shortcuts": [
+    {
+      "name": "Remove Background",
+      "short_name": "Remove BG",
+      "description": "Quickly remove background from an image",
+      "url": "/#tool",
+      "icons": [
+        {
+          "src": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iOTYiIGhlaWdodD0iOTYiIHZpZXdCb3g9IjAgMCA5NiA5NiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9Ijk2IiBoZWlnaHQ9Ijk2IiByeD0iMTIiIGZpbGw9IiMwMGE0ZmYiLz4KPHBhdGggZD0iTTQ4IDI0QzM0Ljc0IDI0IDI0IDM0Ljc0IDI0IDQ4czEwLjc0IDI0IDI0IDI0IDI0LTEwLjc0IDI0LTI0UzYxLjI2IDI0IDQ4IDI0em0wIDQwYy04LjgzIDAtMTYtNy4xNy0xNi0xNnM3LjE3LTE2IDE2LTE2IDE2IDcuMTcgMTYgMTYtNy4xNyAxNi0xNiAxNnoiIGZpbGw9IndoaXRlIi8+CjxwYXRoIGQ9Ik03MiA0OEg3Mi4wMkw3MiA0OEM3MiA0NC40MiA2OS4xNiA0MS42NyA2NS41IDQxLjY3SDMwLjVDMjYuODQgNDEuNjcgMjQgNDQuNDIgMjQgNDhWNDhDMjQgNTEuNTggMjYuODQgNTQuMzMgMzAuNSA1NC4zM0g2NS41QzY5LjE2IDU0LjMzIDcyIDUxLjU4IDcyIDQ4WiIgZmlsbD0id2hpdGUiLz4KPC9zdmc+Cg==",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ]
+}
