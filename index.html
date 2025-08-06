@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>AI Image Generator - Professional Text to Image Tool</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-magic"></i>
+                <span>AI ImageGen</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#tool" class="nav-link">AI Tool</a></li>
+                <li><a href="#features" class="nav-link">Features</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">Transform Text into Stunning Images</h1>
+                <p class="hero-subtitle">Create beautiful, high-quality images from your imagination using cutting-edge AI technology</p>
+                <a href="#tool" class="cta-button">Start Creating Now</a>
+            </div>
+            <div class="hero-image">
+                <div class="floating-card">
+                    <i class="fas fa-palette"></i>
+                    <h3>AI-Powered</h3>
+                    <p>Advanced machine learning</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Tool Section -->
+    <section id="tool" class="tool-section">
+        <div class="container">
+            <h2 class="section-title">AI Image Generator</h2>
+            <p class="section-subtitle">Describe what you want to see, and watch AI bring it to life</p>
+            
+            <div class="tool-container">
+                <div class="input-panel">
+                    <div class="input-group">
+                        <label for="prompt">Describe your image:</label>
+                        <textarea id="prompt" placeholder="A serene mountain landscape at sunset with golden clouds..."></textarea>
+                    </div>
+                    
+                    <div class="options-group">
+                        <div class="option-item">
+                            <label for="style">Style:</label>
+                            <select id="style">
+                                <option value="realistic">Realistic</option>
+                                <option value="artistic">Artistic</option>
+                                <option value="cartoon">Cartoon</option>
+                                <option value="abstract">Abstract</option>
+                                <option value="vintage">Vintage</option>
+                            </select>
+                        </div>
+                        
+                        <div class="option-item">
+                            <label for="size">Size:</label>
+                            <select id="size">
+                                <option value="512x512">512x512</option>
+                                <option value="1024x1024">1024x1024</option>
+                                <option value="1024x768">1024x768</option>
+                                <option value="768x1024">768x1024</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <button id="generate-btn" class="generate-btn">
+                        <i class="fas fa-magic"></i>
+                        Generate Image
+                    </button>
+                </div>
+                
+                <div class="output-panel">
+                    <div id="loading" class="loading hidden">
+                        <div class="spinner"></div>
+                        <p>Creating your masterpiece...</p>
+                    </div>
+                    
+                    <div id="result" class="result hidden">
+                        <img id="generated-image" src="" alt="Generated image">
+                        <div class="result-actions">
+                            <button id="download-btn" class="action-btn">
+                                <i class="fas fa-download"></i>
+                                Download
+                            </button>
+                            <button id="share-btn" class="action-btn">
+                                <i class="fas fa-share"></i>
+                                Share
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div id="placeholder" class="placeholder">
+                        <i class="fas fa-image"></i>
+                        <p>Your generated image will appear here</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features-section">
+        <div class="container">
+            <h2 class="section-title">Why Choose Our AI Tool?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>Advanced AI</h3>
+                    <p>Powered by state-of-the-art machine learning models for exceptional image quality</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>Lightning Fast</h3>
+                    <p>Generate high-quality images in seconds, not minutes</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <h3>Multiple Styles</h3>
+                    <p>Choose from various artistic styles to match your vision</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-download"></i>
+                    </div>
+                    <h3>Easy Download</h3>
+                    <p>Download your creations in high resolution for any use</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Safe & Secure</h3>
+                    <p>Your prompts and images are processed securely</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Mobile Friendly</h3>
+                    <p>Create images on any device, anywhere, anytime</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>About AI ImageGen</h2>
+                    <p>We're passionate about democratizing AI-powered creativity. Our platform combines cutting-edge artificial intelligence with an intuitive interface to help you bring your ideas to life through stunning visual art.</p>
+                    <p>Whether you're a professional designer, content creator, or just someone who loves to explore their creativity, our AI image generator provides the tools you need to create unique, high-quality images from simple text descriptions.</p>
+                    <div class="stats">
+                        <div class="stat">
+                            <h3>10K+</h3>
+                            <p>Images Generated</p>
+                        </div>
+                        <div class="stat">
+                            <h3>5K+</h3>
+                            <p>Happy Users</p>
+                        </div>
+                        <div class="stat">
+                            <h3>99.9%</h3>
+                            <p>Uptime</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-image">
+                    <div class="image-grid">
+                        <div class="grid-item"></div>
+                        <div class="grid-item"></div>
+                        <div class="grid-item"></div>
+                        <div class="grid-item"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <h2 class="section-title">Get in Touch</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Let's Connect</h3>
+                    <p>Have questions or suggestions? We'd love to hear from you!</p>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>hello@aiimagegen.com</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <span>+1 (555) 123-4567</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>San Francisco, CA</span>
+                    </div>
+                </div>
+                <form class="contact-form">
+                    <div class="form-group">
+                        <input type="text" placeholder="Your Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" placeholder="Your Email" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea placeholder="Your Message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <i class="fas fa-magic"></i>
+                        <span>AI ImageGen</span>
+                    </div>
+                    <p>Transforming imagination into reality with AI-powered image generation.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#tool">AI Tool</a></li>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#about">About</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 AI ImageGen. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
