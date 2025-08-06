@@ -154,39 +154,12 @@ function processImage(file) {
                 
                 // Get image data for processing
                 const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-                const data = imageData.data;
                 
-                // Simple background removal simulation
-                // This is a basic implementation - in a real app, you'd use AI/ML
-                for (let i = 0; i < data.length; i += 4) {
-                    const r = data[i];
-                    const g = data[i + 1];
-                    const b = data[i + 2];
-                    
-                    // Simple background detection (white/light backgrounds)
-                    const brightness = (r + g + b) / 3;
-                    const colorDiff = Math.max(r, g, b) - Math.min(r, g, b);
-                    
-                    // If pixel is likely background (bright and low color variation)
-                    if (brightness > 200 && colorDiff < 30) {
-                        data[i + 3] = 0; // Make transparent
-                    }
-                    
-                    // Alternative: detect edges and create a mask
-                    // This is a very basic edge detection
-                    if (i > 0 && i < data.length - 4) {
-                        const currentBrightness = (r + g + b) / 3;
-                        const nextBrightness = (data[i + 4] + data[i + 5] + data[i + 6]) / 3;
-                        
-                        if (Math.abs(currentBrightness - nextBrightness) < 10) {
-                            // Reduce opacity for similar pixels (potential background)
-                            data[i + 3] *= 0.8;
-                        }
-                    }
-                }
+                // Apply professional background removal
+                const processedData = professionalBackgroundRemoval(imageData);
                 
                 // Put the processed image data back
-                ctx.putImageData(imageData, 0, 0);
+                ctx.putImageData(processedData, 0, 0);
                 
                 // Convert to data URL
                 processedImageData = canvas.toDataURL('image/png');
@@ -207,6 +180,866 @@ function processImage(file) {
     };
     
     reader.readAsDataURL(file);
+}
+
+// Professional Background Removal Algorithm
+function professionalBackgroundRemoval(imageData) {
+    const { width, height, data } = imageData;
+    
+    // Step 1: Convert to different color spaces for better analysis
+    const labData = rgbToLab(data, width, height);
+    const hsvData = rgbToHsv(data, width, height);
+    
+    // Step 2: Create multiple masks using different techniques
+    const brightnessMask = createBrightnessMask(data, width, height);
+    const colorMask = createColorMask(labData, width, height);
+    const edgeMask = createEdgeMask(data, width, height);
+    const saturationMask = createSaturationMask(hsvData, width, height);
+    const watershedMask = createWatershedMask(data, width, height);
+    
+    // Step 3: Combine masks using weighted voting with adaptive weights
+    const masks = [brightnessMask, colorMask, edgeMask, saturationMask, watershedMask];
+    const weights = calculateAdaptiveWeights(data, width, height);
+    const combinedMask = combineMasksAdaptive(masks, weights, width, height);
+    
+    // Step 4: Apply advanced morphological operations for cleanup
+    const cleanedMask = advancedMorphologicalOperations(combinedMask, width, height);
+    
+    // Step 5: Apply edge refinement
+    const refinedMask = refineEdges(data, cleanedMask, width, height);
+    
+    // Step 6: Apply the mask to create transparent background with feathering
+    const result = applyMaskWithFeathering(data, refinedMask, width, height);
+    
+    return new ImageData(result, width, height);
+}
+
+// Color space conversions
+function rgbToLab(data, width, height) {
+    const labData = new Float32Array(width * height * 3);
+    
+    for (let i = 0; i < data.length; i += 4) {
+        const r = data[i] / 255;
+        const g = data[i + 1] / 255;
+        const b = data[i + 2] / 255;
+        
+        // Convert to XYZ
+        let x = r * 0.4124 + g * 0.3576 + b * 0.1805;
+        let y = r * 0.2126 + g * 0.7152 + b * 0.0722;
+        let z = r * 0.0193 + g * 0.1192 + b * 0.9505;
+        
+        // Normalize
+        x = x > 0.008856 ? Math.pow(x, 1/3) : (7.787 * x) + (16 / 116);
+        y = y > 0.008856 ? Math.pow(y, 1/3) : (7.787 * y) + (16 / 116);
+        z = z > 0.008856 ? Math.pow(z, 1/3) : (7.787 * z) + (16 / 116);
+        
+        // Convert to Lab
+        const l = (116 * y) - 16;
+        const a = 500 * (x - y);
+        const b_val = 200 * (y - z);
+        
+        const idx = i / 4 * 3;
+        labData[idx] = l;
+        labData[idx + 1] = a;
+        labData[idx + 2] = b_val;
+    }
+    
+    return labData;
+}
+
+function rgbToHsv(data, width, height) {
+    const hsvData = new Float32Array(width * height * 3);
+    
+    for (let i = 0; i < data.length; i += 4) {
+        const r = data[i] / 255;
+        const g = data[i + 1] / 255;
+        const b = data[i + 2] / 255;
+        
+        const max = Math.max(r, g, b);
+        const min = Math.min(r, g, b);
+        const diff = max - min;
+        
+        let h = 0;
+        if (diff === 0) {
+            h = 0;
+        } else if (max === r) {
+            h = ((g - b) / diff) % 6;
+        } else if (max === g) {
+            h = (b - r) / diff + 2;
+        } else {
+            h = (r - g) / diff + 4;
+        }
+        
+        h = h * 60;
+        if (h < 0) h += 360;
+        
+        const s = max === 0 ? 0 : diff / max;
+        const v = max;
+        
+        const idx = i / 4 * 3;
+        hsvData[idx] = h;
+        hsvData[idx + 1] = s;
+        hsvData[idx + 2] = v;
+    }
+    
+    return hsvData;
+}
+
+// Advanced mask creation techniques
+function createBrightnessMask(data, width, height) {
+    const mask = new Uint8Array(width * height);
+    
+    // Calculate global statistics
+    let totalBrightness = 0;
+    let brightnessValues = [];
+    
+    for (let i = 0; i < data.length; i += 4) {
+        const brightness = (data[i] * 0.299 + data[i + 1] * 0.587 + data[i + 2] * 0.114);
+        brightnessValues.push(brightness);
+        totalBrightness += brightness;
+    }
+    
+    const meanBrightness = totalBrightness / (width * height);
+    const sortedBrightness = brightnessValues.sort((a, b) => a - b);
+    const percentile95 = sortedBrightness[Math.floor(sortedBrightness.length * 0.95)];
+    const percentile5 = sortedBrightness[Math.floor(sortedBrightness.length * 0.05)];
+    
+    for (let i = 0; i < data.length; i += 4) {
+        const brightness = (data[i] * 0.299 + data[i + 1] * 0.587 + data[i + 2] * 0.114);
+        const pixelIndex = i / 4;
+        
+        // Adaptive thresholding based on local and global statistics
+        const localThreshold = Math.min(percentile95, meanBrightness * 1.2);
+        const isBackground = brightness > localThreshold && brightness > 200;
+        
+        mask[pixelIndex] = isBackground ? 0 : 255;
+    }
+    
+    return mask;
+}
+
+function createColorMask(labData, width, height) {
+    const mask = new Uint8Array(width * height);
+    
+    // Analyze color distribution in Lab space
+    const colorStats = analyzeColorDistribution(labData, width, height);
+    
+    for (let i = 0; i < width * height; i++) {
+        const l = labData[i * 3];
+        const a = labData[i * 3 + 1];
+        const b = labData[i * 3 + 2];
+        
+        // Detect achromatic (gray/white) pixels
+        const chroma = Math.sqrt(a * a + b * b);
+        const isAchromatic = chroma < 15; // Low chroma indicates gray/white
+        
+        // Check if pixel is in the background color cluster
+        const isBackgroundColor = isInBackgroundCluster(l, a, b, colorStats);
+        
+        mask[i] = (isAchromatic || isBackgroundColor) ? 0 : 255;
+    }
+    
+    return mask;
+}
+
+function createEdgeMask(data, width, height) {
+    const mask = new Uint8Array(width * height);
+    const edges = detectEdges(data, width, height);
+    
+    // Use edges to refine the mask
+    for (let i = 0; i < width * height; i++) {
+        const x = i % width;
+        const y = Math.floor(i / width);
+        
+        // If pixel is near an edge, it's likely foreground
+        const isNearEdge = checkNearEdge(edges, x, y, width, height);
+        mask[i] = isNearEdge ? 255 : 0;
+    }
+    
+    return mask;
+}
+
+function createSaturationMask(hsvData, width, height) {
+    const mask = new Uint8Array(width * height);
+    
+    for (let i = 0; i < width * height; i++) {
+        const saturation = hsvData[i * 3 + 1];
+        const value = hsvData[i * 3 + 2];
+        
+        // Low saturation and high value often indicate background
+        const isBackground = saturation < 0.15 && value > 0.8;
+        mask[i] = isBackground ? 0 : 255;
+    }
+    
+    return mask;
+}
+
+// Advanced edge detection using Canny algorithm
+function detectEdges(data, width, height) {
+    const grayData = new Uint8Array(width * height);
+    
+    // Convert to grayscale
+    for (let i = 0; i < data.length; i += 4) {
+        grayData[i / 4] = data[i] * 0.299 + data[i + 1] * 0.587 + data[i + 2] * 0.114;
+    }
+    
+    // Apply Gaussian blur
+    const blurred = gaussianBlur(grayData, width, height, 1.0);
+    
+    // Apply Sobel operators
+    const sobelX = applySobelX(blurred, width, height);
+    const sobelY = applySobelY(blurred, width, height);
+    
+    // Calculate gradient magnitude and direction
+    const magnitude = new Float32Array(width * height);
+    const direction = new Float32Array(width * height);
+    
+    for (let i = 0; i < width * height; i++) {
+        magnitude[i] = Math.sqrt(sobelX[i] * sobelX[i] + sobelY[i] * sobelY[i]);
+        direction[i] = Math.atan2(sobelY[i], sobelX[i]);
+    }
+    
+    // Non-maximum suppression
+    const suppressed = nonMaxSuppression(magnitude, direction, width, height);
+    
+    // Double thresholding
+    const edges = doubleThreshold(suppressed, width, height);
+    
+    return edges;
+}
+
+function gaussianBlur(data, width, height, sigma) {
+    const kernel = createGaussianKernel(sigma);
+    const result = new Uint8Array(width * height);
+    
+    for (let y = 0; y < height; y++) {
+        for (let x = 0; x < width; x++) {
+            let sum = 0;
+            let weightSum = 0;
+            
+            for (let ky = -2; ky <= 2; ky++) {
+                for (let kx = -2; kx <= 2; kx++) {
+                    const px = Math.max(0, Math.min(width - 1, x + kx));
+                    const py = Math.max(0, Math.min(height - 1, y + ky));
+                    const weight = kernel[(ky + 2) * 5 + (kx + 2)];
+                    
+                    sum += data[py * width + px] * weight;
+                    weightSum += weight;
+                }
+            }
+            
+            result[y * width + x] = sum / weightSum;
+        }
+    }
+    
+    return result;
+}
+
+function createGaussianKernel(sigma) {
+    const kernel = new Float32Array(25);
+    let sum = 0;
+    
+    for (let y = -2; y <= 2; y++) {
+        for (let x = -2; x <= 2; x++) {
+            const exponent = -(x * x + y * y) / (2 * sigma * sigma);
+            const value = Math.exp(exponent) / (2 * Math.PI * sigma * sigma);
+            kernel[(y + 2) * 5 + (x + 2)] = value;
+            sum += value;
+        }
+    }
+    
+    // Normalize
+    for (let i = 0; i < 25; i++) {
+        kernel[i] /= sum;
+    }
+    
+    return kernel;
+}
+
+function applySobelX(data, width, height) {
+    const result = new Float32Array(width * height);
+    
+    for (let y = 1; y < height - 1; y++) {
+        for (let x = 1; x < width - 1; x++) {
+            const gx = 
+                -data[(y - 1) * width + (x - 1)] + data[(y - 1) * width + (x + 1)] +
+                -2 * data[y * width + (x - 1)] + 2 * data[y * width + (x + 1)] +
+                -data[(y + 1) * width + (x - 1)] + data[(y + 1) * width + (x + 1)];
+            
+            result[y * width + x] = gx;
+        }
+    }
+    
+    return result;
+}
+
+function applySobelY(data, width, height) {
+    const result = new Float32Array(width * height);
+    
+    for (let y = 1; y < height - 1; y++) {
+        for (let x = 1; x < width - 1; x++) {
+            const gy = 
+                -data[(y - 1) * width + (x - 1)] + data[(y + 1) * width + (x - 1)] +
+                -2 * data[(y - 1) * width + x] + 2 * data[(y + 1) * width + x] +
+                -data[(y - 1) * width + (x + 1)] + data[(y + 1) * width + (x + 1)];
+            
+            result[y * width + x] = gy;
+        }
+    }
+    
+    return result;
+}
+
+function nonMaxSuppression(magnitude, direction, width, height) {
+    const result = new Float32Array(width * height);
+    
+    for (let y = 1; y < height - 1; y++) {
+        for (let x = 1; x < width - 1; x++) {
+            const angle = direction[y * width + x];
+            const mag = magnitude[y * width + x];
+            
+            // Quantize angle to 0, 45, 90, or 135 degrees
+            let angleDeg = (angle * 180 / Math.PI + 180) % 180;
+            if (angleDeg < 22.5 || angleDeg >= 157.5) angleDeg = 0;
+            else if (angleDeg < 67.5) angleDeg = 45;
+            else if (angleDeg < 112.5) angleDeg = 90;
+            else angleDeg = 135;
+            
+            let neighbor1, neighbor2;
+            
+            switch (angleDeg) {
+                case 0:
+                    neighbor1 = magnitude[y * width + (x - 1)];
+                    neighbor2 = magnitude[y * width + (x + 1)];
+                    break;
+                case 45:
+                    neighbor1 = magnitude[(y - 1) * width + (x + 1)];
+                    neighbor2 = magnitude[(y + 1) * width + (x - 1)];
+                    break;
+                case 90:
+                    neighbor1 = magnitude[(y - 1) * width + x];
+                    neighbor2 = magnitude[(y + 1) * width + x];
+                    break;
+                case 135:
+                    neighbor1 = magnitude[(y - 1) * width + (x - 1)];
+                    neighbor2 = magnitude[(y + 1) * width + (x + 1)];
+                    break;
+            }
+            
+            result[y * width + x] = (mag >= neighbor1 && mag >= neighbor2) ? mag : 0;
+        }
+    }
+    
+    return result;
+}
+
+function doubleThreshold(data, width, height) {
+    const highThreshold = 50;
+    const lowThreshold = 20;
+    const result = new Uint8Array(width * height);
+    
+    for (let i = 0; i < width * height; i++) {
+        if (data[i] >= highThreshold) {
+            result[i] = 255; // Strong edge
+        } else if (data[i] >= lowThreshold) {
+            result[i] = 128; // Weak edge
+        } else {
+            result[i] = 0; // No edge
+        }
+    }
+    
+    return result;
+}
+
+// Helper functions
+function analyzeColorDistribution(labData, width, height) {
+    const lValues = [];
+    const aValues = [];
+    const bValues = [];
+    
+    for (let i = 0; i < width * height; i++) {
+        lValues.push(labData[i * 3]);
+        aValues.push(labData[i * 3 + 1]);
+        bValues.push(labData[i * 3 + 2]);
+    }
+    
+    return {
+        lMean: lValues.reduce((a, b) => a + b) / lValues.length,
+        aMean: aValues.reduce((a, b) => a + b) / aValues.length,
+        bMean: bValues.reduce((a, b) => a + b) / bValues.length,
+        lStd: calculateStd(lValues),
+        aStd: calculateStd(aValues),
+        bStd: calculateStd(bValues)
+    };
+}
+
+function calculateStd(values) {
+    const mean = values.reduce((a, b) => a + b) / values.length;
+    const variance = values.reduce((a, b) => a + Math.pow(b - mean, 2), 0) / values.length;
+    return Math.sqrt(variance);
+}
+
+function isInBackgroundCluster(l, a, b, stats) {
+    const lDiff = Math.abs(l - stats.lMean);
+    const aDiff = Math.abs(a - stats.aMean);
+    const bDiff = Math.abs(b - stats.bMean);
+    
+    // Check if pixel is within 2 standard deviations of background cluster
+    return lDiff < 2 * stats.lStd && aDiff < 2 * stats.aStd && bDiff < 2 * stats.bStd;
+}
+
+function checkNearEdge(edges, x, y, width, height) {
+    const radius = 3;
+    
+    for (let dy = -radius; dy <= radius; dy++) {
+        for (let dx = -radius; dx <= radius; dx++) {
+            const px = x + dx;
+            const py = y + dy;
+            
+            if (px >= 0 && px < width && py >= 0 && py < height) {
+                if (edges[py * width + px] > 0) {
+                    return true;
+                }
+            }
+        }
+    }
+    
+    return false;
+}
+
+// Mask combination using weighted voting (legacy function)
+function combineMasks(masks, width, height) {
+    const weights = [0.3, 0.3, 0.25, 0.15]; // Brightness, Color, Edge, Saturation
+    const result = new Uint8Array(width * height);
+    
+    for (let i = 0; i < width * height; i++) {
+        let weightedSum = 0;
+        let totalWeight = 0;
+        
+        for (let j = 0; j < masks.length; j++) {
+            weightedSum += (masks[j][i] / 255) * weights[j];
+            totalWeight += weights[j];
+        }
+        
+        const confidence = weightedSum / totalWeight;
+        result[i] = confidence > 0.5 ? 255 : 0;
+    }
+    
+    return result;
+}
+
+// Morphological operations for cleanup (legacy function)
+function morphologicalOperations(mask, width, height) {
+    // Erosion to remove noise
+    let eroded = erosion(mask, width, height);
+    
+    // Dilation to restore object boundaries
+    let dilated = dilation(eroded, width, height);
+    
+    // Closing (dilation followed by erosion) to fill small holes
+    let closed = erosion(dilation(dilated, width, height), width, height);
+    
+    return closed;
+}
+
+function erosion(mask, width, height) {
+    const result = new Uint8Array(width * height);
+    
+    for (let y = 1; y < height - 1; y++) {
+        for (let x = 1; x < width - 1; x++) {
+            const center = mask[y * width + x];
+            let min = center;
+            
+            // Check 8-neighborhood
+            for (let dy = -1; dy <= 1; dy++) {
+                for (let dx = -1; dx <= 1; dx++) {
+                    const neighbor = mask[(y + dy) * width + (x + dx)];
+                    min = Math.min(min, neighbor);
+                }
+            }
+            
+            result[y * width + x] = min;
+        }
+    }
+    
+    return result;
+}
+
+function dilation(mask, width, height) {
+    const result = new Uint8Array(width * height);
+    
+    for (let y = 1; y < height - 1; y++) {
+        for (let x = 1; x < width - 1; x++) {
+            const center = mask[y * width + x];
+            let max = center;
+            
+            // Check 8-neighborhood
+            for (let dy = -1; dy <= 1; dy++) {
+                for (let dx = -1; dx <= 1; dx++) {
+                    const neighbor = mask[(y + dy) * width + (x + dx)];
+                    max = Math.max(max, neighbor);
+                }
+            }
+            
+            result[y * width + x] = max;
+        }
+    }
+    
+    return result;
+}
+
+// Advanced mask creation techniques
+function createWatershedMask(data, width, height) {
+    const grayData = new Uint8Array(width * height);
+    
+    // Convert to grayscale
+    for (let i = 0; i < data.length; i += 4) {
+        grayData[i / 4] = data[i] * 0.299 + data[i + 1] * 0.587 + data[i + 2] * 0.114;
+    }
+    
+    // Apply watershed segmentation
+    const watershed = watershedSegmentation(grayData, width, height);
+    
+    return watershed;
+}
+
+function watershedSegmentation(data, width, height) {
+    const markers = new Uint8Array(width * height);
+    const result = new Uint8Array(width * height);
+    
+    // Create markers for background and foreground
+    for (let i = 0; i < width * height; i++) {
+        const x = i % width;
+        const y = Math.floor(i / width);
+        
+        // Mark corners as background
+        if ((x < 10 && y < 10) || (x > width - 10 && y < 10) || 
+            (x < 10 && y > height - 10) || (x > width - 10 && y > height - 10)) {
+            markers[i] = 1; // Background marker
+        }
+        // Mark center region as foreground
+        else if (x > width * 0.3 && x < width * 0.7 && y > height * 0.3 && y < height * 0.7) {
+            markers[i] = 2; // Foreground marker
+        }
+    }
+    
+    // Apply watershed algorithm
+    const labels = watershedAlgorithm(data, markers, width, height);
+    
+    // Convert labels to mask
+    for (let i = 0; i < width * height; i++) {
+        result[i] = labels[i] === 2 ? 255 : 0;
+    }
+    
+    return result;
+}
+
+function watershedAlgorithm(data, markers, width, height) {
+    const labels = new Uint8Array(width * height);
+    const queue = [];
+    
+    // Initialize labels
+    for (let i = 0; i < width * height; i++) {
+        labels[i] = markers[i];
+        if (markers[i] > 0) {
+            queue.push({ index: i, label: markers[i] });
+        }
+    }
+    
+    // Sort queue by intensity
+    queue.sort((a, b) => data[a.index] - data[b.index]);
+    
+    // Process queue
+    while (queue.length > 0) {
+        const current = queue.shift();
+        const x = current.index % width;
+        const y = Math.floor(current.index / width);
+        
+        // Check neighbors
+        for (let dy = -1; dy <= 1; dy++) {
+            for (let dx = -1; dx <= 1; dx++) {
+                if (dx === 0 && dy === 0) continue;
+                
+                const nx = x + dx;
+                const ny = y + dy;
+                
+                if (nx >= 0 && nx < width && ny >= 0 && ny < height) {
+                    const neighborIndex = ny * width + nx;
+                    
+                    if (labels[neighborIndex] === 0) {
+                        labels[neighborIndex] = current.label;
+                        queue.push({ index: neighborIndex, label: current.label });
+                    }
+                }
+            }
+        }
+    }
+    
+    return labels;
+}
+
+// Calculate adaptive weights based on image characteristics
+function calculateAdaptiveWeights(data, width, height) {
+    const stats = analyzeImageStatistics(data, width, height);
+    
+    // Adjust weights based on image characteristics
+    let weights = [0.25, 0.25, 0.2, 0.15, 0.15]; // Base weights
+    
+    // If image has high contrast, increase edge weight
+    if (stats.contrast > 50) {
+        weights[2] += 0.1; // Increase edge weight
+        weights[0] -= 0.05; // Decrease brightness weight
+        weights[1] -= 0.05; // Decrease color weight
+    }
+    
+    // If image has low saturation, increase brightness weight
+    if (stats.saturation < 0.3) {
+        weights[0] += 0.1; // Increase brightness weight
+        weights[3] -= 0.1; // Decrease saturation weight
+    }
+    
+    // Normalize weights
+    const sum = weights.reduce((a, b) => a + b, 0);
+    weights = weights.map(w => w / sum);
+    
+    return weights;
+}
+
+function analyzeImageStatistics(data, width, height) {
+    let totalBrightness = 0;
+    let totalSaturation = 0;
+    let minBrightness = 255;
+    let maxBrightness = 0;
+    let colorVariance = 0;
+    
+    for (let i = 0; i < data.length; i += 4) {
+        const r = data[i];
+        const g = data[i + 1];
+        const b = data[i + 2];
+        
+        const brightness = (r + g + b) / 3;
+        const max = Math.max(r, g, b);
+        const min = Math.min(r, g, b);
+        const saturation = max === 0 ? 0 : (max - min) / max;
+        
+        totalBrightness += brightness;
+        totalSaturation += saturation;
+        minBrightness = Math.min(minBrightness, brightness);
+        maxBrightness = Math.max(maxBrightness, brightness);
+        
+        // Calculate color variance
+        const mean = (r + g + b) / 3;
+        colorVariance += Math.pow(r - mean, 2) + Math.pow(g - mean, 2) + Math.pow(b - mean, 2);
+    }
+    
+    const pixelCount = width * height;
+    
+    return {
+        meanBrightness: totalBrightness / pixelCount,
+        meanSaturation: totalSaturation / pixelCount,
+        contrast: maxBrightness - minBrightness,
+        colorVariance: colorVariance / pixelCount
+    };
+}
+
+// Adaptive mask combination
+function combineMasksAdaptive(masks, weights, width, height) {
+    const result = new Uint8Array(width * height);
+    
+    for (let i = 0; i < width * height; i++) {
+        let weightedSum = 0;
+        let totalWeight = 0;
+        
+        for (let j = 0; j < masks.length; j++) {
+            weightedSum += (masks[j][i] / 255) * weights[j];
+            totalWeight += weights[j];
+        }
+        
+        const confidence = weightedSum / totalWeight;
+        
+        // Apply sigmoid function for smoother transitions
+        const sigmoid = 1 / (1 + Math.exp(-10 * (confidence - 0.5)));
+        result[i] = sigmoid * 255;
+    }
+    
+    return result;
+}
+
+// Advanced morphological operations
+function advancedMorphologicalOperations(mask, width, height) {
+    // Opening (erosion followed by dilation) to remove noise
+    let opened = dilation(erosion(mask, width, height), width, height);
+    
+    // Closing (dilation followed by erosion) to fill holes
+    let closed = erosion(dilation(opened, width, height), width, height);
+    
+    // Area opening to remove small objects
+    let areaOpened = areaOpening(closed, width, height, 100);
+    
+    return areaOpened;
+}
+
+function areaOpening(mask, width, height, minArea) {
+    const labels = connectedComponents(mask, width, height);
+    const areas = calculateAreas(labels, width, height);
+    const result = new Uint8Array(width * height);
+    
+    for (let i = 0; i < width * height; i++) {
+        const label = labels[i];
+        if (label > 0 && areas[label] >= minArea) {
+            result[i] = mask[i];
+        } else {
+            result[i] = 0;
+        }
+    }
+    
+    return result;
+}
+
+function connectedComponents(mask, width, height) {
+    const labels = new Uint8Array(width * height);
+    let currentLabel = 1;
+    
+    for (let i = 0; i < width * height; i++) {
+        if (mask[i] > 0 && labels[i] === 0) {
+            floodFillLabel(mask, labels, i, currentLabel, width, height);
+            currentLabel++;
+        }
+    }
+    
+    return labels;
+}
+
+function floodFillLabel(mask, labels, startIndex, label, width, height) {
+    const stack = [startIndex];
+    
+    while (stack.length > 0) {
+        const current = stack.pop();
+        const x = current % width;
+        const y = Math.floor(current / width);
+        
+        if (labels[current] === 0 && mask[current] > 0) {
+            labels[current] = label;
+            
+            // Add neighbors to stack
+            for (let dy = -1; dy <= 1; dy++) {
+                for (let dx = -1; dx <= 1; dx++) {
+                    const nx = x + dx;
+                    const ny = y + dy;
+                    
+                    if (nx >= 0 && nx < width && ny >= 0 && ny < height) {
+                        const neighborIndex = ny * width + nx;
+                        if (labels[neighborIndex] === 0 && mask[neighborIndex] > 0) {
+                            stack.push(neighborIndex);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+function calculateAreas(labels, width, height) {
+    const areas = {};
+    
+    for (let i = 0; i < width * height; i++) {
+        const label = labels[i];
+        if (label > 0) {
+            areas[label] = (areas[label] || 0) + 1;
+        }
+    }
+    
+    return areas;
+}
+
+// Edge refinement
+function refineEdges(data, mask, width, height) {
+    const edges = detectEdges(data, width, height);
+    const result = new Uint8Array(width * height);
+    
+    for (let i = 0; i < width * height; i++) {
+        const x = i % width;
+        const y = Math.floor(i / width);
+        
+        // If pixel is near an edge, refine the mask
+        if (edges[i] > 0) {
+            // Use edge information to improve mask
+            const edgeStrength = edges[i] / 255;
+            const maskValue = mask[i] / 255;
+            
+            // Blend edge and mask information
+            result[i] = Math.max(maskValue, edgeStrength) * 255;
+        } else {
+            result[i] = mask[i];
+        }
+    }
+    
+    return result;
+}
+
+// Apply mask with feathering for smooth edges
+function applyMaskWithFeathering(data, mask, width, height) {
+    const result = new Uint8ClampedArray(data.length);
+    const featheredMask = applyFeathering(mask, width, height);
+    
+    for (let i = 0; i < data.length; i += 4) {
+        const pixelIndex = i / 4;
+        const maskValue = featheredMask[pixelIndex] / 255;
+        
+        result[i] = data[i];     // R
+        result[i + 1] = data[i + 1]; // G
+        result[i + 2] = data[i + 2]; // B
+        result[i + 3] = data[i + 3] * maskValue; // A (transparency)
+    }
+    
+    return result;
+}
+
+function applyFeathering(mask, width, height) {
+    const feathered = new Uint8Array(width * height);
+    const featherRadius = 3;
+    
+    for (let i = 0; i < width * height; i++) {
+        const x = i % width;
+        const y = Math.floor(i / width);
+        
+        let sum = 0;
+        let count = 0;
+        
+        // Calculate average in neighborhood
+        for (let dy = -featherRadius; dy <= featherRadius; dy++) {
+            for (let dx = -featherRadius; dx <= featherRadius; dx++) {
+                const nx = x + dx;
+                const ny = y + dy;
+                
+                if (nx >= 0 && nx < width && ny >= 0 && ny < height) {
+                    sum += mask[ny * width + nx];
+                    count++;
+                }
+            }
+        }
+        
+        feathered[i] = sum / count;
+    }
+    
+    return feathered;
+}
+
+// Apply final mask to create transparent background
+function applyMask(data, mask, width, height) {
+    const result = new Uint8ClampedArray(data.length);
+    
+    for (let i = 0; i < data.length; i += 4) {
+        const pixelIndex = i / 4;
+        const maskValue = mask[pixelIndex] / 255;
+        
+        result[i] = data[i];     // R
+        result[i + 1] = data[i + 1]; // G
+        result[i + 2] = data[i + 2]; // B
+        result[i + 3] = data[i + 3] * maskValue; // A (transparency)
+    }
+    
+    return result;
 }
 
 function downloadImage() {
@@ -406,100 +1239,7 @@ const styleSheet = document.createElement('style');
 styleSheet.textContent = notificationStyles;
 document.head.appendChild(styleSheet);
 
-// Enhanced background removal algorithm (more sophisticated)
-function enhancedBackgroundRemoval(imageData) {
-    const data = imageData.data;
-    const width = imageData.width;
-    const height = imageData.height;
-    
-    // Create a mask for background detection
-    const mask = new Uint8Array(width * height);
-    
-    // Step 1: Detect edges using Sobel operator
-    const edges = detectEdges(data, width, height);
-    
-    // Step 2: Flood fill from edges to create background mask
-    const backgroundMask = floodFill(edges, width, height);
-    
-    // Step 3: Apply mask to original image
-    for (let i = 0; i < data.length; i += 4) {
-        const pixelIndex = i / 4;
-        const x = pixelIndex % width;
-        const y = Math.floor(pixelIndex / width);
-        
-        if (backgroundMask[y * width + x]) {
-            data[i + 3] = 0; // Make background transparent
-        }
-    }
-    
-    return imageData;
-}
 
-function detectEdges(data, width, height) {
-    const edges = new Uint8Array(width * height);
-    
-    for (let y = 1; y < height - 1; y++) {
-        for (let x = 1; x < width - 1; x++) {
-            const idx = (y * width + x) * 4;
-            
-            // Sobel operators
-            const gx = 
-                -data[idx - 4 - width * 4] + data[idx + 4 - width * 4] +
-                -2 * data[idx - 4] + 2 * data[idx + 4] +
-                -data[idx - 4 + width * 4] + data[idx + 4 + width * 4];
-            
-            const gy = 
-                -data[idx - width * 4 - 4] + data[idx + width * 4 - 4] +
-                -2 * data[idx - width * 4] + 2 * data[idx + width * 4] +
-                -data[idx - width * 4 + 4] + data[idx + width * 4 + 4];
-            
-            const magnitude = Math.sqrt(gx * gx + gy * gy);
-            edges[y * width + x] = magnitude > 50 ? 255 : 0;
-        }
-    }
-    
-    return edges;
-}
-
-function floodFill(edges, width, height) {
-    const visited = new Uint8Array(width * height);
-    const queue = [];
-    
-    // Start from corners
-    const corners = [0, width - 1, (height - 1) * width, width * height - 1];
-    
-    corners.forEach(corner => {
-        if (!visited[corner] && edges[corner] === 0) {
-            queue.push(corner);
-            visited[corner] = 1;
-        }
-    });
-    
-    while (queue.length > 0) {
-        const current = queue.shift();
-        const x = current % width;
-        const y = Math.floor(current / width);
-        
-        // Check neighbors
-        const neighbors = [
-            current - 1, current + 1,
-            current - width, current + width
-        ];
-        
-        neighbors.forEach(neighbor => {
-            const nx = neighbor % width;
-            const ny = Math.floor(neighbor / width);
-            
-            if (nx >= 0 && nx < width && ny >= 0 && ny < height &&
-                !visited[neighbor] && edges[neighbor] === 0) {
-                visited[neighbor] = 1;
-                queue.push(neighbor);
-            }
-        });
-    }
-    
-    return visited;
-}
 
 // Performance optimization: Debounce scroll events
 function debounce(func, wait) {
