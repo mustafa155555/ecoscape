@@ -1,54 +1,67 @@
-# Link Thumbnail Generator
+# Custom Link Shortener
 
-A modern, clean web application that converts any URL into a beautiful thumbnail link preview. Perfect for creating attractive link previews for social media, blogs, or any web content.
+A modern, responsive web application that converts long URLs into clean, customizable short links. Perfect for creating memorable, branded links for social media, marketing campaigns, or any web content.
 
 ## Features
 
-- **Clean, Modern UI**: Beautiful gradient design with smooth animations
-- **Instant Thumbnail Generation**: Converts any URL into a thumbnail preview
-- **Metadata Extraction**: Automatically fetches page title and description
-- **Multiple Export Options**: Copy HTML code or download the thumbnail image
-- **Responsive Design**: Works perfectly on desktop and mobile devices
-- **Example Links**: Quick test with popular websites
-- **Error Handling**: Graceful error handling with user-friendly messages
+- **Custom Short Links**: Create memorable, branded short URLs
+- **Auto-Slug Generation**: Automatically suggests slugs based on the original URL
+- **Responsive Design**: Works perfectly on desktop, tablet, and mobile devices
+- **Local Storage**: Saves your recent links for easy access
+- **QR Code Generation**: Generate QR codes for your short links
+- **Click Tracking**: Track how many times your links are clicked
+- **Copy & Test**: Easy copy to clipboard and test functionality
+- **Modern UI**: Clean, professional design with smooth animations
 
 ## How to Use
 
-1. **Enter a URL**: Paste any website URL into the input field
-2. **Generate Thumbnail**: Click "Generate Thumbnail" or press Enter
-3. **View Result**: See your beautiful thumbnail preview
-4. **Export Options**:
-   - **Copy HTML**: Get the HTML code to embed the thumbnail
-   - **Download Image**: Save the thumbnail as a JPEG file
-   - **New Link**: Start over with a different URL
+1. **Enter a URL**: Paste any long URL into the input field
+2. **Customize (Optional)**: Add a custom slug for your short link
+3. **Create Short Link**: Click "Create Short Link" or press Enter
+4. **Use Your Link**: Copy, test, or generate QR code for your new short link
 
 ## Quick Start
 
 1. Open `index.html` in your web browser
-2. Enter a URL (e.g., `https://github.com`)
-3. Click "Generate Thumbnail"
-4. Use the generated thumbnail in your projects!
+2. Enter a long URL (e.g., `https://example.com/very-long-url-that-needs-shortening`)
+3. Optionally add a custom slug (e.g., `my-custom-link`)
+4. Click "Create Short Link"
+5. Use your new short link: `short.ly/my-custom-link`
 
-## Example URLs to Try
+## Features in Detail
 
-- GitHub: `https://github.com`
-- Stack Overflow: `https://stackoverflow.com`
-- Medium: `https://medium.com`
-- Dev.to: `https://dev.to`
+### Custom Slug Creation
+- Create memorable short links like `short.ly/my-brand`
+- Auto-suggestions based on the original URL domain
+- Validation for allowed characters (letters, numbers, hyphens, underscores)
+
+### Recent Links
+- Automatically saves your last 10 created links
+- Click on any recent link to recreate it
+- View click statistics and creation dates
+
+### QR Code Generation
+- Generate QR codes for easy mobile sharing
+- Customizable colors and size
+- Perfect for print materials and presentations
+
+### Responsive Design
+- Mobile-first approach
+- Works on all screen sizes
+- Touch-friendly interface
+- Optimized for mobile browsers
 
 ## Technical Details
 
-### Screenshot Service
-The application uses [APIFlash](https://apiflash.com/) (free demo version) to generate website screenshots. For production use, you may want to:
-- Sign up for a free APIFlash account
-- Replace the demo access key with your own
-- Or use alternative services like:
-  - [Microlink](https://microlink.io/)
-  - [Urlbox](https://urlbox.io/)
-  - [Cloudinary](https://cloudinary.com/)
+### Local Storage
+- Links are stored in browser's localStorage
+- No server required - works completely offline
+- Data persists between browser sessions
 
-### Metadata Extraction
-Page metadata is fetched using the [AllOrigins](https://allorigins.win/) CORS proxy to avoid cross-origin issues.
+### URL Validation
+- Validates proper URL format
+- Supports HTTP and HTTPS protocols
+- Prevents duplicate custom slugs
 
 ### Browser Compatibility
 - Modern browsers with ES6+ support
@@ -57,35 +70,51 @@ Page metadata is fetched using the [AllOrigins](https://allorigins.win/) CORS pr
 
 ## Customization
 
+### Domain Configuration
+Change the base domain in `script.js`:
+```javascript
+this.baseUrl = 'your-domain.com'; // Change this to your domain
+```
+
 ### Styling
 Modify `styles.css` to customize:
 - Colors and gradients
-- Typography
-- Layout and spacing
+- Typography and spacing
 - Animations and transitions
+- Mobile breakpoints
 
 ### Functionality
 Edit `script.js` to:
-- Change screenshot service
-- Modify thumbnail dimensions
-- Add new export formats
-- Customize error handling
+- Change slug generation logic
+- Modify link storage behavior
+- Add new features
+- Customize validation rules
 
 ## File Structure
 
 ```
 ├── index.html          # Main HTML file
-├── styles.css          # CSS styles and animations
+├── styles.css          # CSS styles and responsive design
 ├── script.js           # JavaScript functionality
 └── README.md          # This file
 ```
 
 ## Browser Security Notes
 
-- The application uses external APIs for screenshot generation and metadata extraction
-- Some websites may block screenshot services
-- CORS policies may affect metadata extraction for certain sites
-- For production use, consider implementing a backend service
+- Uses localStorage for data persistence
+- No external API calls required
+- Works completely client-side
+- No data sent to external servers
+
+## Future Enhancements
+
+Potential features to add:
+- Analytics dashboard
+- Link expiration dates
+- Password protection for links
+- Bulk link creation
+- API integration for server-side storage
+- Social media sharing buttons
 
 ## License
 
@@ -97,4 +126,4 @@ Feel free to submit issues, feature requests, or pull requests to improve the ap
 
 ---
 
-**Note**: This is a client-side application that uses free demo services. For production use, consider implementing proper API keys and rate limiting.
+**Note**: This is a client-side application that works completely offline. For production use with real URL redirection, you'll need to implement server-side functionality to handle the short URL routing.
