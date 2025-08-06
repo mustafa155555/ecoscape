@@ -151,6 +151,46 @@ section:nth-child(even) {
     background: var(--bg-secondary);
 }
 
+/* Ad Sections */
+.ad-section {
+    padding: 40px 0;
+    background: var(--bg-secondary);
+}
+
+.ad-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 90px;
+    background: var(--bg-card);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+    transition: var(--transition);
+}
+
+.ad-container:hover {
+    box-shadow: var(--shadow-md);
+}
+
+.ad-inline {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 250px;
+    background: var(--bg-card);
+    border-radius: var(--border-radius-lg);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-md);
+    overflow: hidden;
+    transition: var(--transition);
+    grid-column: span 2;
+}
+
+.ad-inline:hover {
+    box-shadow: var(--shadow-lg);
+}
+
 /* Cards */
 .shortener-card,
 .result-card,
@@ -660,6 +700,10 @@ section:nth-child(even) {
         padding: 60px 0;
     }
     
+    .ad-section {
+        padding: 30px 0;
+    }
+    
     .shortener-card,
     .result-card,
     .loading-card,
@@ -689,6 +733,11 @@ section:nth-child(even) {
     .features-grid {
         grid-template-columns: 1fr;
         gap: 30px;
+    }
+    
+    .ad-inline {
+        grid-column: span 1;
+        min-height: 200px;
     }
     
     .stats-grid {
@@ -739,5 +788,10 @@ section:nth-child(even) {
     
     .stats-grid {
         grid-template-columns: 1fr;
+    }
+    
+    .ad-container,
+    .ad-inline {
+        min-height: 150px;
     }
 }

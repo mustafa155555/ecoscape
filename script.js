@@ -7,6 +7,7 @@ class ProLinkShortener {
         this.baseUrl = 'prolink.co';
         this.initializeTheme();
         this.updateRecentLinksDisplay();
+        this.initializeAds();
     }
 
     initializeElements() {
@@ -30,6 +31,12 @@ class ProLinkShortener {
         this.qrModal = document.getElementById('qrModal');
         this.closeQrModal = document.getElementById('closeQrModal');
         this.qrCode = document.getElementById('qrCode');
+        
+        // Ad sections
+        this.adSection1 = document.getElementById('adSection1');
+        this.adSection2 = document.getElementById('adSection2');
+        this.adSection3 = document.getElementById('adSection3');
+        this.adSection4 = document.getElementById('adSection4');
     }
 
     bindEvents() {
@@ -56,6 +63,9 @@ class ProLinkShortener {
                 this.generateSlugFromUrl();
             }
         });
+
+        // Ad visibility tracking
+        this.setupAdVisibilityTracking();
     }
 
     initializeTheme() {
@@ -79,6 +89,100 @@ class ProLinkShortener {
             icon.className = 'fas fa-moon';
         } else {
             icon.className = 'fas fa-sun';
+        }
+    }
+
+    initializeAds() {
+        // Initialize AdSense ads with proper configuration
+        this.loadAds();
+        
+        // Refresh ads when theme changes
+        this.themeToggle.addEventListener('click', () => {
+            setTimeout(() => this.refreshAds(), 100);
+        });
+    }
+
+    loadAds() {
+        // Load ads with proper timing
+        setTimeout(() => {
+            this.showAdSection(this.adSection1);
+        }, 1000);
+
+        setTimeout(() => {
+            this.showAdSection(this.adSection2);
+        }, 2000);
+
+        setTimeout(() => {
+            this.showAdSection(this.adSection3);
+        }, 3000);
+
+        setTimeout(() => {
+            this.showAdSection(this.adSection4);
+        }, 4000);
+    }
+
+    showAdSection(adSection) {
+        if (adSection) {
+            adSection.style.display = 'block';
+            // Trigger AdSense refresh
+            if (window.adsbygoogle) {
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            }
+        }
+    }
+
+    refreshAds() {
+        // Refresh all ads when theme changes
+        const adSections = [this.adSection1, this.adSection2, this.adSection3, this.adSection4];
+        adSections.forEach(section => {
+            if (section && section.style.display !== 'none') {
+                const adContainer = section.querySelector('.adsbygoogle');
+                if (adContainer) {
+                    adContainer.style.display = 'none';
+                    setTimeout(() => {
+                        adContainer.style.display = 'block';
+                        if (window.adsbygoogle) {
+                            (adsbygoogle = window.adsbygoogle || []).push({});
+                        }
+                    }, 100);
+                }
+            }
+        });
+    }
+
+    setupAdVisibilityTracking() {
+        // Track ad visibility for analytics
+        const observerOptions = {
+            threshold: 0.5,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const adObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    this.trackAdView(entry.target.id);
+                }
+            });
+        }, observerOptions);
+
+        // Observe all ad sections
+        const adSections = [this.adSection1, this.adSection2, this.adSection3, this.adSection4];
+        adSections.forEach(section => {
+            if (section) {
+                adObserver.observe(section);
+            }
+        });
+    }
+
+    trackAdView(adSectionId) {
+        // Track ad views for analytics
+        console.log(`Ad viewed: ${adSectionId}`);
+        // You can integrate with Google Analytics here
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'ad_view', {
+                'ad_section': adSectionId,
+                'page_location': window.location.href
+            });
         }
     }
 
