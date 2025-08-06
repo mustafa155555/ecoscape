@@ -1,31 +1,39 @@
-class URLShortener {
+class ProLinkShortener {
     constructor() {
         this.initializeElements();
         this.bindEvents();
         this.currentShortLink = null;
         this.recentLinks = this.loadRecentLinks();
-        this.baseUrl = 'short.ly';
+        this.baseUrl = 'prolink.co';
+        this.initializeTheme();
         this.updateRecentLinksDisplay();
     }
 
     initializeElements() {
+        this.themeToggle = document.getElementById('themeToggle');
         this.longUrlInput = document.getElementById('longUrl');
         this.customSlugInput = document.getElementById('customSlug');
         this.shortenBtn = document.getElementById('shortenBtn');
         this.resultSection = document.getElementById('resultSection');
         this.shortUrlDisplay = document.getElementById('shortUrlDisplay');
         this.originalUrlDisplay = document.getElementById('originalUrlDisplay');
+        this.createdDate = document.getElementById('createdDate');
         this.loading = document.getElementById('loading');
         this.error = document.getElementById('error');
         this.errorMessage = document.getElementById('errorMessage');
         this.copyBtn = document.getElementById('copyBtn');
         this.testBtn = document.getElementById('testBtn');
+        this.qrBtn = document.getElementById('qrBtn');
         this.newBtn = document.getElementById('newBtn');
         this.recentLinksSection = document.getElementById('recentLinks');
         this.linksList = document.getElementById('linksList');
+        this.qrModal = document.getElementById('qrModal');
+        this.closeQrModal = document.getElementById('closeQrModal');
+        this.qrCode = document.getElementById('qrCode');
     }
 
     bindEvents() {
+        this.themeToggle.addEventListener('click', () => this.toggleTheme());
         this.shortenBtn.addEventListener('click', () => this.createShortLink());
         this.longUrlInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') this.createShortLink();
@@ -35,8 +43,14 @@ class URLShortener {
         });
         this.copyBtn.addEventListener('click', () => this.copyShortLink());
         this.testBtn.addEventListener('click', () => this.testShortLink());
+        this.qrBtn.addEventListener('click', () => this.generateQRCode());
         this.newBtn.addEventListener('click', () => this.resetForm());
+        this.closeQrModal.addEventListener('click', () => this.closeModal());
         
+        this.qrModal.addEventListener('click', (e) => {
+            if (e.target === this.qrModal) this.closeModal();
+        });
+
         this.longUrlInput.addEventListener('input', () => {
             if (!this.customSlugInput.value) {
                 this.generateSlugFromUrl();
@@ -44,7 +58,31 @@ class URLShortener {
         });
     }
 
-    createShortLink() {
+    initializeTheme() {
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        this.updateThemeIcon(savedTheme);
+    }
+
+    toggleTheme() {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        
+        document.documentElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        this.updateThemeIcon(newTheme);
+    }
+
+    updateThemeIcon(theme) {
+        const icon = this.themeToggle.querySelector('i');
+        if (theme === 'dark') {
+            icon.className = 'fas fa-moon';
+        } else {
+            icon.className = 'fas fa-sun';
+        }
+    }
+
+    async createShortLink() {
         const longUrl = this.longUrlInput.value.trim();
         const customSlug = this.customSlugInput.value.trim();
         
@@ -119,6 +157,7 @@ class URLShortener {
     displayShortLink() {
         this.shortUrlDisplay.textContent = this.currentShortLink.shortUrl;
         this.originalUrlDisplay.textContent = this.currentShortLink.longUrl;
+        this.createdDate.textContent = new Date(this.currentShortLink.createdAt).toLocaleDateString();
     }
 
     generateRandomSlug() {
@@ -205,6 +244,31 @@ class URLShortener {
         window.open(this.currentShortLink.longUrl, '_blank');
     }
 
+    generateQRCode() {
+        if (!this.currentShortLink) return;
+        
+        this.qrCode.innerHTML = '';
+        QRCode.toCanvas(this.qrCode, this.currentShortLink.shortUrl, {
+            width: 200,
+            margin: 2,
+            color: {
+                dark: '#3b82f6',
+                light: '#ffffff'
+            }
+        }, (error) => {
+            if (error) {
+                console.error('QR Code generation error:', error);
+                this.showError('Failed to generate QR code');
+            }
+        });
+        
+        this.qrModal.style.display = 'flex';
+    }
+
+    closeModal() {
+        this.qrModal.style.display = 'none';
+    }
+
     resetForm() {
         this.longUrlInput.value = '';
         this.customSlugInput.value = '';
@@ -272,6 +336,10 @@ class URLShortener {
 
     showResult() {
         this.resultSection.style.display = 'block';
+        this.resultSection.classList.add('success');
+        setTimeout(() => {
+            this.resultSection.classList.remove('success');
+        }, 600);
     }
 
     hideResult() {
@@ -288,19 +356,21 @@ class URLShortener {
     }
 
     showCopySuccess() {
-        const originalText = this.copyBtn.textContent;
-        this.copyBtn.textContent = 'Copied!';
-        this.copyBtn.style.background = '#28a745';
+        const originalText = this.copyBtn.innerHTML;
+        this.copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+        this.copyBtn.style.background = 'var(--success-color)';
+        this.copyBtn.style.borderColor = 'var(--success-color)';
         this.copyBtn.style.color = 'white';
         
         setTimeout(() => {
-            this.copyBtn.textContent = originalText;
+            this.copyBtn.innerHTML = originalText;
             this.copyBtn.style.background = '';
+            this.copyBtn.style.borderColor = '';
             this.copyBtn.style.color = '';
         }, 2000);
     }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    new URLShortener();
+    new ProLinkShortener();
 });
